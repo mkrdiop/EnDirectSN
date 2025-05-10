@@ -1,10 +1,11 @@
+
 "use client";
 
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Search, Tv2, MessageSquareText, Wallet, Heart, Smartphone, PlaySquare, Users, MonitorPlay, Lock, Laptop } from "lucide-react";
+import { Search, Tv2, MessageSquareText, Wallet, Heart, Smartphone, PlaySquare, Users, MonitorPlay, Lock, Laptop, Tv } from "lucide-react";
 import { Logo } from "@/components/logo";
 import React from "react";
 
@@ -24,15 +25,21 @@ const ViewersLandingNavbar = () => {
             Comment ça marche ?
           </Link>
           <Button asChild variant="outline">
-            <Link href="/live-streams">Explorer les Streams</Link>
+            <Link href="/live-streams">
+              <span>Explorer les Streams</span>
+            </Link>
           </Button>
           <Button asChild>
-            <Link href="/dashboard">Espace Créateur</Link> {/* Keep a link to streamer space */}
+            <Link href="/dashboard">
+              <span>Espace Créateur</span>
+            </Link> {/* Keep a link to streamer space */}
           </Button>
         </nav>
         <div className="md:hidden">
            <Button asChild variant="outline">
-            <Link href="/live-streams">Streams</Link>
+            <Link href="/live-streams">
+              <span>Streams</span>
+            </Link>
           </Button>
         </div>
       </div>
@@ -123,10 +130,14 @@ export default function ViewersLandingPage() {
             </p>
             <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" asChild className="bg-primary hover:bg-primary/90 text-primary-foreground">
-                <Link href="/live-streams">Explorer les Streams</Link>
+                <Link href="/live-streams">
+                  <span>Explorer les Streams</span>
+                </Link>
               </Button>
               <Button size="lg" variant="outline" asChild>
-                <Link href="#avantages">Pourquoi Nous Choisir ?</Link>
+                <Link href="#avantages">
+                  <span>Pourquoi Nous Choisir ?</span>
+                </Link>
               </Button>
             </div>
              <div className="mt-16 relative aspect-video max-w-4xl mx-auto rounded-xl shadow-2xl overflow-hidden">
@@ -225,10 +236,14 @@ export default function ViewersLandingPage() {
             </p>
             <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" variant="secondary" asChild className="text-secondary-foreground hover:bg-secondary/90">
-                <Link href="/live-streams">Explorer les Streams</Link>
+                <Link href="/live-streams">
+                  <span>Explorer les Streams</span>
+                </Link>
               </Button>
               <Button size="lg" variant="outline" asChild className="border-primary-foreground/50 text-primary-foreground hover:bg-primary-foreground/10">
-                <Link href="#">Créer Mon Compte (Bientôt)</Link>
+                <Link href="#">
+                  <span>Créer Mon Compte (Bientôt)</span>
+                </Link>
               </Button>
             </div>
           </div>
@@ -239,3 +254,4 @@ export default function ViewersLandingPage() {
     </div>
   );
 }
+

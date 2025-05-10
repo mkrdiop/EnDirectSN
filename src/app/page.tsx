@@ -25,15 +25,21 @@ const LandingNavbar = () => {
             Pourquoi Nous?
           </Link>
           <Button variant="outline" asChild>
-            <Link href="/viewers">Espace Spectateur</Link>
+            <Link href="/viewers">
+              <span>Espace Spectateur</span>
+            </Link>
           </Button>
           <Button asChild>
-            <Link href="/dashboard">Tableau de Bord Créateur</Link>
+            <Link href="/dashboard">
+              <span>Tableau de Bord Créateur</span>
+            </Link>
           </Button>
         </nav>
         <div className="md:hidden">
            <Button asChild variant="outline">
-            <Link href="/dashboard">Accès Streamer</Link>
+            <Link href="/dashboard">
+              <span>Accès Streamer</span>
+            </Link>
           </Button>
         </div>
       </div>
@@ -111,7 +117,7 @@ const whyUsPoints = [
     icon: BarChart,
     title: "Technologie de Pointe et IA",
     description: "Bénéficiez d'outils IA innovants, d'une qualité HD et d'une plateforme stable pour des streams professionnels.",
-    dataAiHint: "AI editing",
+    dataAiHint: "AI technology",
   },
   {
     icon: Users,
@@ -137,10 +143,14 @@ export default function StreamerLandingPage() {
             </p>
             <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" asChild className="bg-primary hover:bg-primary/90 text-primary-foreground">
-                <Link href="/dashboard">Commencez Maintenant</Link>
+                <Link href="/dashboard">
+                  <span>Commencez Maintenant</span>
+                </Link>
               </Button>
               <Button size="lg" variant="outline" asChild>
-                <Link href="#fonctionnalites">Découvrir les Fonctionnalités</Link>
+                <Link href="#fonctionnalites">
+                  <span>Découvrir les Fonctionnalités</span>
+                </Link>
               </Button>
             </div>
              <div className="mt-16 relative aspect-video max-w-4xl mx-auto rounded-xl shadow-2xl overflow-hidden">
@@ -250,7 +260,9 @@ export default function StreamerLandingPage() {
             </p>
             <div className="mt-10">
               <Button size="lg" variant="secondary" asChild className="text-secondary-foreground hover:bg-secondary/90">
-                <Link href="/dashboard">Créer Mon Compte Streamer</Link>
+                <Link href="/dashboard">
+                  <span>Créer Mon Compte Streamer</span>
+                </Link>
               </Button>
             </div>
           </div>
@@ -261,3 +273,4 @@ export default function StreamerLandingPage() {
     </div>
   );
 }
+
