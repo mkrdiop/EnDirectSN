@@ -1,3 +1,4 @@
+
 import { PageHeader } from "@/components/page-header";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -8,8 +9,8 @@ export default function PaymentsPage() {
   return (
     <div className="container mx-auto">
       <PageHeader
-        title="Payments & Monetization"
-        description="Manage your earnings and integrate with Sonatel Orange Money for seamless payments."
+        title="Paiements & Monétisation"
+        description="Gérez vos revenus et intégrez Sonatel Orange Money pour des paiements fluides."
         icon={CreditCard}
       />
 
@@ -17,36 +18,36 @@ export default function PaymentsPage() {
         <Card className="shadow-lg">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <Image src="https://picsum.photos/seed/sonatel/40/40" alt="Sonatel Orange Money" width={40} height={40} className="rounded-full" data-ai-hint="Sonatel logo"/>
-              Sonatel Orange Money Integration
+              <Image src="https://picsum.photos/seed/sonatel/40/40" alt="Sonatel Orange Money" width={40} height={40} className="rounded-full" data-ai-hint="logo Sonatel"/>
+              Intégration Sonatel Orange Money
             </CardTitle>
             <CardDescription>
-              Allow viewers to pay for access to your exclusive live streams using Sonatel Orange Money.
-              Set your prices and manage payouts directly.
+              Permettez aux spectateurs de payer pour accéder à vos streams exclusifs en utilisant Sonatel Orange Money.
+              Fixez vos prix et gérez les paiements directement.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="flex items-center p-4 rounded-md bg-primary/10 text-primary border border-primary/20">
               <AlertTriangle className="h-6 w-6 mr-3 shrink-0" />
               <p className="text-sm">
-                <strong>Developer Note:</strong> Full Sonatel Orange Money API integration is a complex feature.
-                This section is a placeholder. In a production environment, this would involve secure API calls,
-                transaction handling, and user authentication with Sonatel services.
+                <strong>Note du développeur :</strong> L'intégration complète de l'API Sonatel Orange Money est une fonctionnalité complexe.
+                Cette section est une maquette. Dans un environnement de production, cela impliquerait des appels API sécurisés,
+                la gestion des transactions et l'authentification des utilisateurs avec les services Sonatel.
               </p>
             </div>
             <div>
-              <h3 className="font-semibold text-lg mb-2">Stream Pricing</h3>
+              <h3 className="font-semibold text-lg mb-2">Tarification du Stream</h3>
               <p className="text-muted-foreground mb-2">
-                Define access fees for your premium live content. Offer various pricing tiers or pay-per-view options.
+                Définissez les frais d'accès pour votre contenu premium en direct. Proposez divers niveaux de tarification ou des options de paiement à la séance.
               </p>
-              <Button disabled>Configure Pricing (Coming Soon)</Button>
+              <Button disabled>Configurer la Tarification (Bientôt disponible)</Button>
             </div>
             <div>
-              <h3 className="font-semibold text-lg mb-2">Payouts</h3>
+              <h3 className="font-semibold text-lg mb-2">Paiements</h3>
               <p className="text-muted-foreground mb-2">
-                View your earnings and manage your payout settings. Funds are transferred securely via Orange Money.
+                Consultez vos revenus et gérez vos paramètres de paiement. Les fonds sont transférés de manière sécurisée via Orange Money.
               </p>
-              <Button disabled>View Earnings (Coming Soon)</Button>
+              <Button disabled>Voir les Revenus (Bientôt disponible)</Button>
             </div>
           </CardContent>
         </Card>
@@ -55,27 +56,27 @@ export default function PaymentsPage() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <DollarSign className="h-6 w-6 text-primary" />
-              Earnings Overview
+              Aperçu des Revenus
             </CardTitle>
             <CardDescription>
-              Track your revenue from paid live streams.
+              Suivez vos revenus issus des streams payants.
             </CardDescription>
           </CardHeader>
           <CardContent className="text-center">
             <p className="text-4xl font-bold text-primary">0 CFA</p>
-            <p className="text-muted-foreground mt-1">Total Earnings (Last 30 Days)</p>
+            <p className="text-muted-foreground mt-1">Revenus Totaux (30 derniers jours)</p>
             <div className="mt-6 grid grid-cols-2 gap-4 text-sm">
               <div>
                 <p className="font-semibold">0</p>
-                <p className="text-muted-foreground">Paid Streams</p>
+                <p className="text-muted-foreground">Streams Payants</p>
               </div>
               <div>
                 <p className="font-semibold">0</p>
-                <p className="text-muted-foreground">Subscribers</p>
+                <p className="text-muted-foreground">Abonnés</p>
               </div>
             </div>
             <Button variant="outline" className="mt-6" disabled>
-              View Detailed Report (Coming Soon)
+              Voir le Rapport Détaillé (Bientôt disponible)
             </Button>
           </CardContent>
         </Card>
@@ -83,13 +84,13 @@ export default function PaymentsPage() {
 
        <Card className="mt-8 shadow-md bg-secondary/10">
         <CardHeader>
-          <CardTitle>Why Monetize with EnDirectAuSénégal?</CardTitle>
+          <CardTitle>Pourquoi Monétiser avec EnDirectAuSénégal ?</CardTitle>
         </CardHeader>
         <CardContent className="space-y-2 text-secondary-foreground/80">
-          <p><strong>Local Payment Solution:</strong> Seamless integration with Sonatel Orange Money, widely used in Senegal.</p>
-          <p><strong>Direct Earnings:</strong> Keep a significant portion of your revenue.</p>
-          <p><strong>Easy Setup:</strong> Quickly configure pricing for your exclusive content.</p>
-          <p><strong>Secure Transactions:</strong> All payments are processed securely.</p>
+          <p><strong>Solution de Paiement Locale :</strong> Intégration transparente avec Sonatel Orange Money, largement utilisé au Sénégal.</p>
+          <p><strong>Revenus Directs :</strong> Conservez une part importante de vos revenus.</p>
+          <p><strong>Configuration Facile :</strong> Configurez rapidement la tarification de votre contenu exclusif.</p>
+          <p><strong>Transactions Sécurisées :</strong> Tous les paiements sont traités de manière sécurisée.</p>
         </CardContent>
       </Card>
     </div>

@@ -1,3 +1,4 @@
+
 "use client";
 
 import { PageHeader } from "@/components/page-header";
@@ -16,9 +17,9 @@ import { useToast } from "@/hooks/use-toast";
 import { Progress } from "@/components/ui/progress";
 
 const formSchema = z.object({
-  streamDataUri: z.string().min(1, "Stream video file is required."),
-  viewerEngagementData: z.string().min(1, "Viewer engagement data is required."),
-  keyEventsData: z.string().min(1, "Key events data is required."),
+  streamDataUri: z.string().min(1, "Le fichier vidéo du stream est requis."),
+  viewerEngagementData: z.string().min(1, "Les données d'engagement des spectateurs sont requises."),
+  keyEventsData: z.string().min(1, "Les données des événements clés sont requises."),
 });
 
 type FormData = z.infer<typeof formSchema>;
@@ -39,8 +40,8 @@ export default function AiHighlightsPage() {
     if (file) {
       if (!file.type.startsWith("video/")) {
         toast({
-          title: "Invalid File Type",
-          description: "Please select a video file.",
+          title: "Type de Fichier Invalide",
+          description: "Veuillez sélectionner un fichier vidéo.",
           variant: "destructive",
         });
         return;
@@ -48,15 +49,15 @@ export default function AiHighlightsPage() {
       // Max 10MB for demo
       if (file.size > 10 * 1024 * 1024) {
          toast({
-          title: "File Too Large",
-          description: "Please select a video file smaller than 10MB for this demo.",
+          title: "Fichier Trop Volumineux",
+          description: "Veuillez sélectionner un fichier vidéo de moins de 10Mo pour cette démo.",
           variant: "destructive",
         });
         return;
       }
 
       setFileName(file.name);
-      setIsLoading(true); // For file reading indication
+      setIsLoading(true); 
       setProgress(0);
       
       const reader = new FileReader();
@@ -70,11 +71,11 @@ export default function AiHighlightsPage() {
         setValue("streamDataUri", reader.result as string);
         setIsLoading(false);
         setProgress(100);
-         toast({ title: "File Ready", description: `${file.name} has been prepared.` });
+         toast({ title: "Fichier Prêt", description: `${file.name} a été préparé.` });
       };
       reader.onerror = () => {
         setIsLoading(false);
-        toast({ title: "File Read Error", description: "Could not read the selected file.", variant: "destructive" });
+        toast({ title: "Erreur de Lecture du Fichier", description: "Impossible de lire le fichier sélectionné.", variant: "destructive" });
       }
       reader.readAsDataURL(file);
     }
@@ -82,14 +83,13 @@ export default function AiHighlightsPage() {
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     setIsLoading(true);
-    setProgress(0); // Reset progress for AI processing
+    setProgress(0); 
     setResult(null);
     try {
-      // Simulate progress for AI processing
       let currentProgress = 0;
       const progressInterval = setInterval(() => {
         currentProgress += 10;
-        if (currentProgress <= 90) { // Don't go to 100 until result is back
+        if (currentProgress <= 90) { 
           setProgress(currentProgress);
         } else {
           clearInterval(progressInterval);
@@ -101,16 +101,16 @@ export default function AiHighlightsPage() {
       setProgress(100);
       setResult(response);
       toast({
-        title: "Highlight Reel Generated!",
-        description: "Your AI-powered highlight reel is ready.",
+        title: "Moments Forts Générés !",
+        description: "Vos moments forts générés par IA sont prêts.",
       });
     } catch (error) {
-      console.error("Error generating highlight reel:", error);
+      console.error("Erreur lors de la génération des moments forts :", error);
       clearInterval(progressInterval);
       setProgress(0);
       toast({
-        title: "Error",
-        description: "Failed to generate highlight reel. " + (error instanceof Error ? error.message : String(error)),
+        title: "Erreur",
+        description: "Échec de la génération des moments forts. " + (error instanceof Error ? error.message : String(error)),
         variant: "destructive",
       });
     } finally {
@@ -121,22 +121,22 @@ export default function AiHighlightsPage() {
   return (
     <div className="container mx-auto">
       <PageHeader
-        title="AI Highlight Reel Generator"
-        description="Automatically create engaging highlight reels from your live streams using AI."
+        title="Générateur de Moments Forts IA"
+        description="Créez automatiquement des extraits captivants de vos diffusions en direct grâce à l'IA."
         icon={Sparkles}
       />
       <Card className="shadow-lg">
         <CardHeader>
-          <CardTitle>Create New Highlight Reel</CardTitle>
+          <CardTitle>Créer de Nouveaux Moments Forts</CardTitle>
           <CardDescription>
-            Upload your stream video and provide engagement data to get started.
-            For demo purposes, please use small video files (e.g., under 10MB).
+            Téléversez la vidéo de votre stream et fournissez les données d'engagement pour commencer.
+            Pour la démo, veuillez utiliser des fichiers vidéo de petite taille (ex: moins de 10Mo).
           </CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             <div>
-              <Label htmlFor="stream-video" className="block text-sm font-medium mb-1">Stream Video File</Label>
+              <Label htmlFor="stream-video" className="block text-sm font-medium mb-1">Fichier Vidéo du Stream</Label>
               <Input
                 id="stream-video"
                 type="file"
@@ -145,16 +145,16 @@ export default function AiHighlightsPage() {
                 className="block w-full text-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20"
                 disabled={isLoading}
               />
-              {fileName && <p className="text-sm text-muted-foreground mt-1">Selected: {fileName}</p>}
+              {fileName && <p className="text-sm text-muted-foreground mt-1">Sélectionné : {fileName}</p>}
               {errors.streamDataUri && <p className="text-sm text-destructive mt-1">{errors.streamDataUri.message}</p>}
             </div>
 
             <div>
-              <Label htmlFor="viewerEngagementData">Viewer Engagement Data</Label>
+              <Label htmlFor="viewerEngagementData">Données d'Engagement des Spectateurs</Label>
               <Textarea
                 id="viewerEngagementData"
                 {...register("viewerEngagementData")}
-                placeholder="e.g., Chat logs, peak viewership times, user reactions..."
+                placeholder="ex: Logs de chat, pics d'audience, réactions des utilisateurs..."
                 rows={4}
                 disabled={isLoading}
               />
@@ -162,11 +162,11 @@ export default function AiHighlightsPage() {
             </div>
 
             <div>
-              <Label htmlFor="keyEventsData">Key Events Data</Label>
+              <Label htmlFor="keyEventsData">Données des Événements Clés</Label>
               <Textarea
                 id="keyEventsData"
                 {...register("keyEventsData")}
-                placeholder="e.g., Timestamps of important moments, speaker notes, topics discussed..."
+                placeholder="ex: Horodatages des moments importants, notes de l'orateur, sujets discutés..."
                 rows={4}
                 disabled={isLoading}
               />
@@ -175,16 +175,16 @@ export default function AiHighlightsPage() {
             
             {isLoading && (
               <div className="space-y-2">
-                <Label>{progress < 100 && progress > 0 && fileName ? `Reading ${fileName}...` : 'Processing with AI...'}</Label>
+                <Label>{progress < 100 && progress > 0 && fileName ? `Lecture de ${fileName}...` : 'Traitement par IA...'}</Label>
                 <Progress value={progress} className="w-full" />
                  <p className="text-sm text-muted-foreground text-center">
-                   {fileName && progress < 100 && progress > 0 ? `Preparing ${fileName}...` : 'AI is working its magic. This may take a few moments...'}
+                   {fileName && progress < 100 && progress > 0 ? `Préparation de ${fileName}...` : "L'IA fait sa magie. Cela peut prendre quelques instants..."}
                  </p>
               </div>
             )}
 
             <Button type="submit" className="w-full" disabled={isLoading}>
-              {isLoading ? "Generating..." : "Generate Highlight Reel"}
+              {isLoading ? "Génération en cours..." : "Générer les Moments Forts"}
             </Button>
           </form>
         </CardContent>
@@ -193,22 +193,22 @@ export default function AiHighlightsPage() {
       {result && (
         <Card className="mt-8 shadow-lg">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2"><Video className="h-6 w-6 text-primary"/> Highlight Reel Ready!</CardTitle>
+            <CardTitle className="flex items-center gap-2"><Video className="h-6 w-6 text-primary"/> Moments Forts Prêts !</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div>
-              <h3 className="font-semibold">Summary:</h3>
+              <h3 className="font-semibold">Résumé :</h3>
               <p className="text-muted-foreground whitespace-pre-wrap">{result.summary}</p>
             </div>
             <div>
-              <h3 className="font-semibold">Generated Reel:</h3>
+              <h3 className="font-semibold">Vidéo Générée :</h3>
               {result.highlightReelDataUri.startsWith("data:video") ? (
                 <video controls src={result.highlightReelDataUri} className="w-full max-w-md rounded-md border mt-2 shadow-md" />
               ) : (
-                 <p className="text-muted-foreground">Could not display video preview. <a href={result.highlightReelDataUri} download="highlight_reel.mp4" className="text-primary hover:underline">Download Reel</a></p>
+                 <p className="text-muted-foreground">Impossible d'afficher l'aperçu vidéo. <a href={result.highlightReelDataUri} download="moments_forts.mp4" className="text-primary hover:underline">Télécharger la Vidéo</a></p>
               )}
                <Button asChild variant="outline" className="mt-2">
-                 <a href={result.highlightReelDataUri} download="highlight_reel.mp4">Download Reel</a>
+                 <a href={result.highlightReelDataUri} download="moments_forts.mp4">Télécharger la Vidéo</a>
                </Button>
             </div>
           </CardContent>

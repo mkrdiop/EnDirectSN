@@ -1,10 +1,11 @@
+
 'use server';
 /**
- * @fileOverview A flow for creating highlight reels from live streams using AI.
+ * @fileOverview Un flux pour créer des moments forts (highlight reels) à partir de diffusions en direct en utilisant l'IA.
  *
- * - createHighlightReel - A function that handles the highlight reel creation process.
- * - CreateHighlightReelInput - The input type for the createHighlightReel function.
- * - CreateHighlightReelOutput - The return type for the createHighlightReel function.
+ * - createHighlightReel - Une fonction qui gère le processus de création des moments forts.
+ * - CreateHighlightReelInput - Le type d'entrée pour la fonction createHighlightReel.
+ * - CreateHighlightReelOutput - Le type de retour pour la fonction createHighlightReel.
  */
 
 import {ai} from '@/ai/genkit';
@@ -14,22 +15,22 @@ const CreateHighlightReelInputSchema = z.object({
   streamDataUri: z
     .string()
     .describe(
-      "A data URI of the live stream video file, that must include a MIME type and use Base64 encoding. Expected format: 'data:<mimetype>;base64,<encoded_data>'."
+      "Un URI de données du fichier vidéo du flux en direct, qui doit inclure un type MIME et utiliser l'encodage Base64. Format attendu : 'data:<mimetype>;base64,<encoded_data>'."
     ),
   viewerEngagementData: z
     .string()
-    .describe('Data on viewer engagement during the stream, such as chat activity and viewer counts.'),
+    .describe("Données sur l'engagement des spectateurs pendant le stream, telles que l'activité du chat et le nombre de spectateurs."),
   keyEventsData: z
     .string()
-    .describe('Data on key events that occurred during the stream.'),
+    .describe('Données sur les événements clés qui se sont produits pendant le stream.'),
 });
 export type CreateHighlightReelInput = z.infer<typeof CreateHighlightReelInputSchema>;
 
 const CreateHighlightReelOutputSchema = z.object({
   highlightReelDataUri: z
     .string()
-    .describe("A data URI of the generated highlight reel video file, that must include a MIME type and use Base64 encoding. Expected format: 'data:<mimetype>;base64,<encoded_data>'."),
-  summary: z.string().describe('A summary of the highlights included in the reel.'),
+    .describe("Un URI de données du fichier vidéo des moments forts généré, qui doit inclure un type MIME et utiliser l'encodage Base64. Format attendu : 'data:<mimetype>;base64,<encoded_data>'."),
+  summary: z.string().describe('Un résumé des moments forts inclus dans la vidéo.'),
 });
 export type CreateHighlightReelOutput = z.infer<typeof CreateHighlightReelOutputSchema>;
 

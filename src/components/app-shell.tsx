@@ -1,3 +1,4 @@
+
 // NOTE: This component is not needed due to changes in the prompt that removed the use of route groups.
 // The AppShell functionality is now integrated directly into the RootLayout or specific page layouts.
 // For this specific implementation, Sidebar and main content structure will be part of RootLayout and individual page.tsx files.
@@ -36,12 +37,12 @@ import {
 } from "lucide-react";
 
 const navItems = [
-  { href: "/", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/streaming-settings", label: "Streaming Setup", icon: Settings },
+  { href: "/", label: "Tableau de Bord", icon: LayoutDashboard },
+  { href: "/streaming-settings", label: "Configuration Stream", icon: Settings },
   { href: "/multistreaming", label: "Multistreaming", icon: Share2 },
-  { href: "/ai-highlights", label: "AI Highlights", icon: Sparkles },
-  { href: "/ai-translation", label: "AI Translation", icon: Languages },
-  { href: "/payments", label: "Payments", icon: CreditCard },
+  { href: "/ai-highlights", label: "Moments Forts IA", icon: Sparkles },
+  { href: "/ai-translation", label: "Traduction IA", icon: Languages },
+  { href: "/payments", label: "Paiements", icon: CreditCard },
 ];
 
 export function AppShell({ children }: { children: React.ReactNode }) {

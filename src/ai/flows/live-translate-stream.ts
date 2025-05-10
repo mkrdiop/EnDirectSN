@@ -1,23 +1,24 @@
+
 'use server';
 /**
- * @fileOverview A live stream translation AI agent.
+ * @fileOverview Un agent IA pour la traduction en direct de flux de streaming.
  *
- * - liveTranslateStream - A function that handles the live stream translation process.
- * - LiveTranslateStreamInput - The input type for the liveTranslateStream function.
- * - LiveTranslateStreamOutput - The return type for the liveTranslateStream function.
+ * - liveTranslateStream - Une fonction qui gère le processus de traduction en direct du flux.
+ * - LiveTranslateStreamInput - Le type d'entrée pour la fonction liveTranslateStream.
+ * - LiveTranslateStreamOutput - Le type de retour pour la fonction liveTranslateStream.
  */
 
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 
 const LiveTranslateStreamInputSchema = z.object({
-  spokenText: z.string().describe('The text spoken by the host.'),
-  targetLanguage: z.string().describe('The language to translate the spoken text into.'),
+  spokenText: z.string().describe("Le texte prononcé par l'animateur."),
+  targetLanguage: z.string().describe('La langue dans laquelle traduire le texte prononcé.'),
 });
 export type LiveTranslateStreamInput = z.infer<typeof LiveTranslateStreamInputSchema>;
 
 const LiveTranslateStreamOutputSchema = z.object({
-  translatedText: z.string().describe('The translated text in the target language.'),
+  translatedText: z.string().describe('Le texte traduit dans la langue cible.'),
 });
 export type LiveTranslateStreamOutput = z.infer<typeof LiveTranslateStreamOutputSchema>;
 

@@ -1,3 +1,4 @@
+
 "use client";
 
 import { PageHeader } from "@/components/page-header";
@@ -36,8 +37,8 @@ export default function StreamingSettingsPage() {
       if ((fileType === "image" && !file.type.startsWith("image/")) || 
           (fileType === "video" && !file.type.startsWith("video/"))) {
         toast({
-          title: "Invalid File Type",
-          description: `Please select a valid ${fileType} file.`,
+          title: "Type de Fichier Invalide",
+          description: `Veuillez sélectionner un fichier ${fileType} valide.`,
           variant: "destructive",
         });
         return;
@@ -50,8 +51,8 @@ export default function StreamingSettingsPage() {
     event.preventDefault();
     // Handle form submission logic, e.g., save settings to backend
     toast({
-      title: "Settings Saved",
-      description: "Your streaming settings have been updated successfully.",
+      title: "Paramètres Enregistrés",
+      description: "Vos paramètres de streaming ont été mis à jour avec succès.",
     });
     console.log({ resolution, recordingQuality, logo, overlay, background });
   };
@@ -82,7 +83,7 @@ export default function StreamingSettingsPage() {
         <div className="space-y-2">
           <Label htmlFor={`${title.toLowerCase().replace(/\s+/g, "-")}-upload`} className="cursor-pointer flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-lg hover:border-primary transition-colors">
             <UploadCloud className="h-8 w-8 text-muted-foreground" />
-            <span className="text-sm text-muted-foreground">Click to upload or drag and drop</span>
+            <span className="text-sm text-muted-foreground">Cliquez pour téléverser ou glissez-déposez</span>
           </Label>
           <Input id={`${title.toLowerCase().replace(/\s+/g, "-")}-upload`} type="file" className="hidden" accept={accept} onChange={onFileChange} />
           {currentFile ? (
@@ -106,22 +107,22 @@ export default function StreamingSettingsPage() {
   return (
     <div className="container mx-auto">
       <PageHeader
-        title="Streaming Setup"
-        description="Customize your stream quality and appearance."
+        title="Configuration du Streaming"
+        description="Personnalisez la qualité et l'apparence de votre stream."
         icon={Settings}
       />
       <form onSubmit={handleSubmit} className="space-y-8">
         <Card className="shadow-lg">
           <CardHeader>
-            <CardTitle>Stream Quality</CardTitle>
-            <CardDescription>Set your live streaming and recording quality.</CardDescription>
+            <CardTitle>Qualité du Stream</CardTitle>
+            <CardDescription>Définissez la qualité de votre streaming en direct et de vos enregistrements.</CardDescription>
           </CardHeader>
           <CardContent className="grid gap-6 md:grid-cols-2">
             <div className="space-y-2">
-              <Label htmlFor="resolution">Streaming Resolution (Max)</Label>
+              <Label htmlFor="resolution">Résolution de Streaming (Max)</Label>
               <Select value={resolution} onValueChange={setResolution}>
                 <SelectTrigger id="resolution">
-                  <SelectValue placeholder="Select resolution" />
+                  <SelectValue placeholder="Sélectionnez la résolution" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="1080p">Full HD (1080p)</SelectItem>
@@ -131,10 +132,10 @@ export default function StreamingSettingsPage() {
               </Select>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="recording-quality">Local Recording Quality</Label>
+              <Label htmlFor="recording-quality">Qualité d'Enregistrement Local</Label>
               <Select value={recordingQuality} onValueChange={setRecordingQuality}>
                 <SelectTrigger id="recording-quality">
-                  <SelectValue placeholder="Select quality" />
+                  <SelectValue placeholder="Sélectionnez la qualité" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="4k">4K</SelectItem>
@@ -149,12 +150,12 @@ export default function StreamingSettingsPage() {
         <Separator />
 
         <div>
-          <h2 className="text-2xl font-semibold mb-1">Personalization</h2>
-          <p className="text-muted-foreground mb-6">Add your brand elements to the stream.</p>
+          <h2 className="text-2xl font-semibold mb-1">Personnalisation</h2>
+          <p className="text-muted-foreground mb-6">Ajoutez les éléments de votre marque au stream.</p>
           <div className="grid gap-6 md:grid-cols-1 lg:grid-cols-3">
             <FileUploadCard
               title="Logo"
-              description="Upload your brand logo (PNG, JPG, max 2MB)."
+              description="Téléversez le logo de votre marque (PNG, JPG, max 2Mo)."
               currentFile={logo}
               onFileChange={(e) => handleFileChange(e, setLogo, "image")}
               accept="image/png, image/jpeg"
@@ -162,8 +163,8 @@ export default function StreamingSettingsPage() {
               dataAiHint="brand logo"
             />
             <FileUploadCard
-              title="Overlay"
-              description="Upload a custom overlay (PNG, max 5MB)."
+              title="Superposition"
+              description="Téléversez une superposition personnalisée (PNG, max 5Mo)."
               currentFile={overlay}
               onFileChange={(e) => handleFileChange(e, setOverlay, "image")}
               accept="image/png"
@@ -171,19 +172,19 @@ export default function StreamingSettingsPage() {
               dataAiHint="stream overlay"
             />
             <FileUploadCard
-              title="Background Image/Video"
-              description="Set a background for waiting screens or intros (JPG, PNG, MP4, max 10MB)."
+              title="Image/Vidéo d'Arrière-plan"
+              description="Définissez un arrière-plan pour les écrans d'attente ou les intros (JPG, PNG, MP4, max 10Mo)."
               currentFile={background}
-              onFileChange={(e) => handleFileChange(e, setBackground, "video")} // Allow video primarily
+              onFileChange={(e) => handleFileChange(e, setBackground, "video")} 
               accept="image/png, image/jpeg, video/mp4"
-              fileType="video" // Default to video but accept images too
+              fileType="video" 
               dataAiHint="stream background"
             />
           </div>
         </div>
         
         <div className="flex justify-end pt-4">
-          <Button type="submit" size="lg">Save Settings</Button>
+          <Button type="submit" size="lg">Enregistrer les Paramètres</Button>
         </div>
       </form>
     </div>

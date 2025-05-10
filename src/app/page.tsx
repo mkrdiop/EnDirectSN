@@ -6,39 +6,39 @@ import Link from "next/link";
 
 const features = [
   {
-    title: "Streaming Setup",
-    description: "Configure HD streaming and personalize your broadcast with logos and overlays.",
+    title: "Configuration du Streaming",
+    description: "Configurez le streaming HD et personnalisez votre diffusion avec des logos et des superpositions.",
     icon: Settings,
     href: "/streaming-settings",
-    cta: "Configure Stream",
+    cta: "Configurer le Stream",
   },
   {
     title: "Multistreaming",
-    description: "Reach a wider audience by streaming to multiple platforms simultaneously.",
+    description: "Atteignez un public plus large en diffusant sur plusieurs plateformes simultanément.",
     icon: Share2,
     href: "/multistreaming",
-    cta: "Set Up Destinations",
+    cta: "Configurer les Destinations",
   },
   {
-    title: "AI Highlights",
-    description: "Automatically generate engaging highlight reels from your live streams.",
+    title: "Moments Forts IA",
+    description: "Générez automatiquement des extraits captivants de vos diffusions en direct.",
     icon: Sparkles,
     href: "/ai-highlights",
-    cta: "Create Highlights",
+    cta: "Créer des Moments Forts",
   },
   {
-    title: "AI Translation",
-    description: "Provide live translations of your stream in multiple languages.",
+    title: "Traduction IA",
+    description: "Fournissez des traductions en direct de votre stream dans plusieurs langues.",
     icon: Languages,
     href: "/ai-translation",
-    cta: "Translate Content",
+    cta: "Traduire le Contenu",
   },
   {
-    title: "Payments",
-    description: "Manage your earnings and integrate with Sonatel for payment processing.",
+    title: "Paiements",
+    description: "Gérez vos revenus et intégrez Sonatel pour le traitement des paiements.",
     icon: CreditCard,
     href: "/payments",
-    cta: "View Payments",
+    cta: "Voir les Paiements",
   },
 ];
 
@@ -46,8 +46,8 @@ export default function DashboardPage() {
   return (
     <div className="container mx-auto">
       <PageHeader
-        title="Dashboard"
-        description="Welcome to EnDirectAuSénégal! Manage your streams and access powerful features."
+        title="Tableau de Bord"
+        description="Bienvenue sur EnDirectAuSénégal ! Gérez vos streams et accédez à des fonctionnalités puissantes."
         icon={LayoutDashboard}
       />
 
@@ -78,13 +78,13 @@ export default function DashboardPage() {
       <Card className="mt-8 bg-gradient-to-r from-primary/10 via-secondary/10 to-accent/10 p-6 shadow-lg">
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           <div>
-            <h2 className="text-2xl font-semibold text-foreground">Ready to Go Live?</h2>
+            <h2 className="text-2xl font-semibold text-foreground">Prêt à passer en direct ?</h2>
             <p className="text-muted-foreground mt-1">
-              Start your professional live stream today with EnDirectAuSénégal.
+              Lancez votre diffusion en direct professionnelle dès aujourd'hui avec EnDirectAuSénégal.
             </p>
           </div>
           <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground group">
-            Start New Stream <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+            Lancer un Nouveau Stream <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
           </Button>
         </div>
       </Card>

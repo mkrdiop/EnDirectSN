@@ -1,3 +1,4 @@
+
 "use client";
 
 import { PageHeader } from "@/components/page-header";
@@ -8,7 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/components/ui/textarea";
 import { Languages, MessageSquareText } from "lucide-react";
 import React, { useState } from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { liveTranslateStream, LiveTranslateStreamInput, LiveTranslateStreamOutput } from "@/ai/flows/live-translate-stream";
@@ -16,21 +17,21 @@ import { useToast } from "@/hooks/use-toast";
 import { Progress } from "@/components/ui/progress";
 
 const formSchema = z.object({
-  spokenText: z.string().min(1, "Spoken text is required."),
-  targetLanguage: z.string().min(1, "Target language is required."),
+  spokenText: z.string().min(1, "Le texte parlé est requis."),
+  targetLanguage: z.string().min(1, "La langue cible est requise."),
 });
 
 type FormData = z.infer<typeof formSchema>;
 
 const supportedLanguages = [
-  { code: "en", name: "English" },
-  { code: "fr", name: "French" },
-  { code: "es", name: "Spanish" },
-  { code: "de", name: "German" },
-  { code: "pt", name: "Portuguese" },
-  { code: "wo", name: "Wolof" }, // Added Wolof
-  { code: "ar", name: "Arabic" },
-  { code: "zh", name: "Chinese (Simplified)" },
+  { code: "en", name: "Anglais" },
+  { code: "fr", name: "Français" },
+  { code: "es", name: "Espagnol" },
+  { code: "de", name: "Allemand" },
+  { code: "pt", name: "Portugais" },
+  { code: "wo", name: "Wolof" },
+  { code: "ar", name: "Arabe" },
+  { code: "zh", name: "Chinois (Simplifié)" },
 ];
 
 export default function AiTranslationPage() {
@@ -42,7 +43,7 @@ export default function AiTranslationPage() {
   const { register, handleSubmit, control, formState: { errors } } = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      targetLanguage: "fr", // Default to French
+      targetLanguage: "fr", 
     }
   });
 
@@ -51,10 +52,9 @@ export default function AiTranslationPage() {
     setProgress(0);
     setTranslatedText(null);
     try {
-      // Simulate progress for AI processing
       let currentProgress = 0;
       const progressInterval = setInterval(() => {
-        currentProgress += 20; // Faster simulation for text
+        currentProgress += 20; 
         if (currentProgress <= 80) {
           setProgress(currentProgress);
         } else {
@@ -67,16 +67,16 @@ export default function AiTranslationPage() {
       setProgress(100);
       setTranslatedText(response.translatedText);
       toast({
-        title: "Translation Successful!",
-        description: `Text translated to ${supportedLanguages.find(l => l.code === data.targetLanguage)?.name || data.targetLanguage}.`,
+        title: "Traduction Réussie !",
+        description: `Texte traduit en ${supportedLanguages.find(l => l.code === data.targetLanguage)?.name || data.targetLanguage}.`,
       });
     } catch (error) {
-      console.error("Error translating text:", error);
+      console.error("Erreur lors de la traduction du texte :", error);
       clearInterval(progressInterval);
       setProgress(0);
       toast({
-        title: "Error",
-        description: "Failed to translate text. " + (error instanceof Error ? error.message : String(error)),
+        title: "Erreur",
+        description: "Échec de la traduction du texte. " + (error instanceof Error ? error.message : String(error)),
         variant: "destructive",
       });
     } finally {
@@ -87,24 +87,24 @@ export default function AiTranslationPage() {
   return (
     <div className="container mx-auto">
       <PageHeader
-        title="Live AI Translation"
-        description="Translate spoken text from your live stream in real-time."
+        title="Traduction IA en Direct"
+        description="Traduisez en temps réel le texte parlé de votre stream."
         icon={Languages}
       />
       <div className="grid md:grid-cols-2 gap-8">
         <Card className="shadow-lg">
           <CardHeader>
-            <CardTitle>Translate Text</CardTitle>
-            <CardDescription>Enter the text to translate and select the target language.</CardDescription>
+            <CardTitle>Traduire du Texte</CardTitle>
+            <CardDescription>Entrez le texte à traduire et sélectionnez la langue cible.</CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
               <div>
-                <Label htmlFor="spokenText">Text to Translate (Host's Speech)</Label>
+                <Label htmlFor="spokenText">Texte à Traduire (Discours de l'hôte)</Label>
                 <Textarea
                   id="spokenText"
                   {...register("spokenText")}
-                  placeholder="Enter the text spoken by the host..."
+                  placeholder="Entrez le texte parlé par l'hôte..."
                   rows={5}
                   disabled={isLoading}
                 />
@@ -112,14 +112,14 @@ export default function AiTranslationPage() {
               </div>
 
               <div>
-                <Label htmlFor="targetLanguage">Target Language</Label>
+                <Label htmlFor="targetLanguage">Langue Cible</Label>
                 <Controller
                   name="targetLanguage"
                   control={control}
                   render={({ field }) => (
                     <Select onValueChange={field.onChange} defaultValue={field.value} disabled={isLoading}>
                       <SelectTrigger id="targetLanguage">
-                        <SelectValue placeholder="Select language" />
+                        <SelectValue placeholder="Sélectionnez la langue" />
                       </SelectTrigger>
                       <SelectContent>
                         {supportedLanguages.map((lang) => (
@@ -136,13 +136,13 @@ export default function AiTranslationPage() {
 
               {isLoading && (
                 <div className="space-y-2">
-                  <Label>Translating...</Label>
+                  <Label>Traduction en cours...</Label>
                   <Progress value={progress} className="w-full" />
                 </div>
               )}
 
               <Button type="submit" className="w-full" disabled={isLoading}>
-                {isLoading ? "Translating..." : "Translate"}
+                {isLoading ? "Traduction..." : "Traduire"}
               </Button>
             </form>
           </CardContent>
@@ -151,16 +151,16 @@ export default function AiTranslationPage() {
         <Card className="shadow-lg">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <MessageSquareText className="h-6 w-6 text-primary" /> Translated Text
+              <MessageSquareText className="h-6 w-6 text-primary" /> Texte Traduit
             </CardTitle>
-            <CardDescription>The translated text will appear here.</CardDescription>
+            <CardDescription>Le texte traduit apparaîtra ici.</CardDescription>
           </CardHeader>
           <CardContent className="min-h-[200px] bg-muted/30 p-4 rounded-md border">
             {translatedText ? (
               <p className="whitespace-pre-wrap text-foreground">{translatedText}</p>
             ) : (
               <p className="text-muted-foreground">
-                {isLoading ? "Translation in progress..." : "Enter text and click translate to see the result."}
+                {isLoading ? "Traduction en cours..." : "Entrez du texte et cliquez sur traduire pour voir le résultat."}
               </p>
             )}
           </CardContent>
