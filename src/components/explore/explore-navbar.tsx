@@ -4,7 +4,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/logo";
-import { Compass, LayoutDashboard, LogIn } from "lucide-react"; // Added LogIn icon
+import { Compass, LayoutDashboard, LogIn, Mic } from "lucide-react"; // Added Mic icon
 
 export function ExploreNavbar() {
   return (
@@ -18,8 +18,8 @@ export function ExploreNavbar() {
             </Link>
           </Button>
           <Button variant="ghost" asChild>
-             <Link href="/#fonctionnalites-streamer"> {/* Assuming this ID exists on streamer landing page */}
-              Pour les Créateurs
+             <Link href="/creators">
+              <Mic className="mr-2 h-4 w-4" /> Pour les Créateurs
             </Link>
           </Button>
            <Button variant="outline" asChild>
