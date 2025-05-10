@@ -4,7 +4,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { CheckCircle, DollarSign, BarChart, Users, Settings, Share2, Sparkles, Languages, CreditCard, Scissors, PlaySquare, Tv, Smartphone } from "lucide-react";
 import { Logo } from "@/components/logo";
 import React from "react";
