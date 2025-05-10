@@ -32,7 +32,7 @@ const ViewersLandingNavbar = () => {
           <Button asChild>
             <Link href="/dashboard">
               <span>Espace Créateur</span>
-            </Link> {/* Keep a link to streamer space */}
+            </Link>
           </Button>
         </nav>
         <div className="md:hidden">
