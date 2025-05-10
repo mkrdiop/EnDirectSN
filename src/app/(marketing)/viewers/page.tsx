@@ -26,19 +26,19 @@ const ViewersLandingNavbar = () => {
           </Link>
           <Button asChild variant="outline">
             <Link href="/live-streams">
-              <span>Explorer les Streams</span>
+              Explorer les Streams
             </Link>
           </Button>
           <Button asChild>
             <Link href="/dashboard">
-              <span>Espace Créateur</span>
+              Espace Créateur
             </Link>
           </Button>
         </nav>
         <div className="md:hidden">
            <Button asChild variant="outline">
             <Link href="/live-streams">
-              <span>Streams</span>
+              Streams
             </Link>
           </Button>
         </div>
@@ -131,12 +131,12 @@ export default function ViewersLandingPage() {
             <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" asChild className="bg-primary hover:bg-primary/90 text-primary-foreground">
                 <Link href="/live-streams">
-                  <span>Explorer les Streams</span>
+                  Explorer les Streams
                 </Link>
               </Button>
               <Button size="lg" variant="outline" asChild>
                 <Link href="#avantages">
-                  <span>Pourquoi Nous Choisir ?</span>
+                  Pourquoi Nous Choisir ?
                 </Link>
               </Button>
             </div>
@@ -237,12 +237,12 @@ export default function ViewersLandingPage() {
             <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" variant="secondary" asChild className="text-secondary-foreground hover:bg-secondary/90">
                 <Link href="/live-streams">
-                  <span>Explorer les Streams</span>
+                  Explorer les Streams
                 </Link>
               </Button>
               <Button size="lg" variant="outline" asChild className="border-primary-foreground/50 text-primary-foreground hover:bg-primary-foreground/10">
                 <Link href="#">
-                  <span>Créer Mon Compte (Bientôt)</span>
+                  Créer Mon Compte (Bientôt)
                 </Link>
               </Button>
             </div>
@@ -254,4 +254,3 @@ export default function ViewersLandingPage() {
     </div>
   );
 }
-

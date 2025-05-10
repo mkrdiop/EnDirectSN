@@ -59,6 +59,21 @@ export default function LiveStreamsPage() {
       setUnlockedStreams(newUnlockedStreams);
       localStorage.setItem(MOCK_UNLOCKED_STREAMS_KEY, JSON.stringify(Array.from(newUnlockedStreams)));
       
+      // Simulate transaction for wallet history
+      const MOCK_TRANSACTION_HISTORY_KEY = "mockTransactionHistory";
+      const storedHistory = localStorage.getItem(MOCK_TRANSACTION_HISTORY_KEY);
+      let history = storedHistory ? JSON.parse(storedHistory) : [];
+      const streamTitle = mockStreams.find(s => s.id === streamId)?.title || "Stream";
+      const newTransaction = {
+        id: `txn_spend_${Date.now()}`,
+        date: new Date().toISOString(),
+        description: `Déblocage: ${streamTitle}`,
+        amount: -price, // Negative for spending
+        type: "spend",
+      };
+      history = [newTransaction, ...history].slice(0,10);
+      localStorage.setItem(MOCK_TRANSACTION_HISTORY_KEY, JSON.stringify(history));
+      
       return true;
     } else {
       toast({

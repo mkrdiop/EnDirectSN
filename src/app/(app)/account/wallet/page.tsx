@@ -76,10 +76,10 @@ export default function WalletPage() {
 
   const addTransaction = (description: string, amount: number, type: "deposit" | "spend") => {
     const newTransaction: Transaction = {
-      id: `txn_${Date.now()}`,
+      id: `txn_${type}_${Date.now()}`,
       date: new Date().toISOString(),
       description,
-      amount,
+      amount: type === "deposit" ? amount : -Math.abs(amount), // ensure spend is negative
       type,
     };
     const updatedHistory = [newTransaction, ...transactionHistory].slice(0, 10); // Keep last 10
@@ -202,7 +202,7 @@ export default function WalletPage() {
                     <TableCell>{new Date(tx.date).toLocaleDateString('fr-FR', { day: '2-digit', month: 'short', year: 'numeric' })}</TableCell>
                     <TableCell className="truncate max-w-xs">{tx.description}</TableCell>
                     <TableCell className={`text-right font-medium ${tx.type === 'deposit' ? 'text-green-600' : 'text-red-600'}`}>
-                      {tx.type === 'deposit' ? '+' : '-'}{Math.abs(tx.amount).toLocaleString()}
+                      {tx.type === 'deposit' ? '+' : ''}{tx.amount.toLocaleString()} 
                     </TableCell>
                     <TableCell>
                        <Badge variant={tx.type === 'deposit' ? 'default' : 'destructive'} className={tx.type === 'deposit' ? 'bg-green-100 text-green-700 border-green-300' : 'bg-red-100 text-red-700 border-red-300'}>
