@@ -1,7 +1,8 @@
+
 import { PageHeader } from "@/components/page-header";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowRight, LayoutDashboard, Settings, Share2, Sparkles, Languages, CreditCard } from "lucide-react";
+import { ArrowRight, LayoutDashboard, Settings, Share2, Sparkles, Languages, CreditCard, Scissors } from "lucide-react";
 import Link from "next/link";
 
 const features = [
@@ -25,6 +26,13 @@ const features = [
     icon: Sparkles,
     href: "/ai-highlights",
     cta: "Créer des Moments Forts",
+  },
+  {
+    title: "Générateur de Vidéos Courtes IA",
+    description: "Créez des vidéos courtes (Shorts, Reels) à partir de vos streams pour les réseaux sociaux.",
+    icon: Scissors,
+    href: "/ai-shorts",
+    cta: "Créer des Vidéos Courtes",
   },
   {
     title: "Traduction IA",
@@ -91,3 +99,4 @@ export default function DashboardPage() {
     </div>
   );
 }
+
