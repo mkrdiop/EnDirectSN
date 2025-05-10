@@ -1,4 +1,5 @@
 
+
 "use client";
 
 import Link from "next/link";
@@ -25,7 +26,7 @@ const ViewersLandingNavbar = () => {
             Comment ça marche ?
           </Link>
           <Button asChild variant="outline">
-            <Link href="/live-streams">
+            <Link href="/explore">
               Explorer les Streams
             </Link>
           </Button>
@@ -37,8 +38,8 @@ const ViewersLandingNavbar = () => {
         </nav>
         <div className="md:hidden">
            <Button asChild variant="outline">
-            <Link href="/live-streams">
-              Streams
+            <Link href="/explore">
+              Explorer
             </Link>
           </Button>
         </div>
@@ -57,7 +58,7 @@ const ViewersLandingFooter = () => {
           Votre portail vers le meilleur du streaming sénégalais et de la diaspora.
         </p>
         <div className="mt-4 flex justify-center gap-4">
-          <Link href="/live-streams" className="text-muted-foreground hover:text-primary"><PlaySquare className="h-5 w-5" /></Link>
+          <Link href="/explore" className="text-muted-foreground hover:text-primary"><PlaySquare className="h-5 w-5" /></Link>
           <Link href="#" className="text-muted-foreground hover:text-primary"><Smartphone className="h-5 w-5" /></Link>
           <Link href="#" className="text-muted-foreground hover:text-primary"><Tv className="h-5 w-5" /></Link>
         </div>
@@ -130,7 +131,7 @@ export default function ViewersLandingPage() {
             </p>
             <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" asChild className="bg-primary hover:bg-primary/90 text-primary-foreground">
-                <Link href="/live-streams">
+                <Link href="/explore">
                   Explorer les Streams
                 </Link>
               </Button>
@@ -236,7 +237,7 @@ export default function ViewersLandingPage() {
             </p>
             <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" variant="secondary" asChild className="text-secondary-foreground hover:bg-secondary/90">
-                <Link href="/live-streams">
+                <Link href="/explore">
                   Explorer les Streams
                 </Link>
               </Button>
@@ -254,4 +255,3 @@ export default function ViewersLandingPage() {
     </div>
   );
 }
-
