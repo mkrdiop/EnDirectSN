@@ -4,7 +4,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"; // CardFooter removed as it is not used directly here
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Input } from "@/components/ui/input";
 import { Search, Compass, Sparkles, Users as UsersIcon, CalendarDays, ArrowRight } from "lucide-react";
@@ -13,10 +13,11 @@ import { ExploreFooter } from "@/components/explore/explore-footer";
 import { StreamCard } from "@/components/viewer/stream-card";
 import type { Stream } from "@/lib/mock-streams";
 import { mockStreams } from "@/lib/mock-streams";
-import type { ExploreCategory, TopStreamer } from "@/lib/mock-explore-data";
-import { exploreCategories, topStreamers } from "@/lib/mock-explore-data";
+import type { ExploreCategory, TopStreamer, PlannedStream } from "@/lib/mock-explore-data"; // Added PlannedStream
+import { exploreCategories, topStreamers, plannedStreams } from "@/lib/mock-explore-data"; // Added plannedStreams
 import { CategoryCard } from "@/components/explore/category-card";
 import { StreamerCard } from "@/components/explore/streamer-card";
+import { PlannedStreamCard } from "@/components/explore/planned-stream-card"; // Added PlannedStreamCard
 import React, { useState, useEffect }from "react";
 import { useToast } from "@/hooks/use-toast";
 
@@ -143,16 +144,20 @@ export default function ExplorePage() {
                 </Link>
               </Button>
             </div>
-            <ScrollArea className="w-full pb-4">
-              <div className="flex space-x-6">
-                {featuredStreams.map((stream) => (
-                  <div key={stream.id} className="w-[320px] shrink-0">
-                    <StreamCard stream={stream} onUnlockStream={handleUnlockStream} isUnlocked={unlockedStreams.has(stream.id)} />
-                  </div>
-                ))}
-              </div>
-              <ScrollBar orientation="horizontal" />
-            </ScrollArea>
+            {featuredStreams.length > 0 ? (
+              <ScrollArea className="w-full pb-4">
+                <div className="flex space-x-6">
+                  {featuredStreams.map((stream) => (
+                    <div key={stream.id} className="w-[300px] sm:w-[320px] shrink-0">
+                      <StreamCard stream={stream} onUnlockStream={handleUnlockStream} isUnlocked={unlockedStreams.has(stream.id)} />
+                    </div>
+                  ))}
+                </div>
+                <ScrollBar orientation="horizontal" />
+              </ScrollArea>
+            ) : (
+                <p className="text-muted-foreground text-center py-8">Aucun stream en vedette pour le moment.</p>
+            )}
           </div>
         </section>
 
@@ -163,7 +168,7 @@ export default function ExplorePage() {
               Explorer par Catégories
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-              {exploreCategories.slice(0, 8).map((category) => ( // Show up to 8 categories
+              {exploreCategories.slice(0, 8).map((category) => ( 
                 <CategoryCard key={category.slug} category={category} />
               ))}
             </div>
@@ -186,38 +191,36 @@ export default function ExplorePage() {
               <UsersIcon className="mr-3 h-8 w-8 text-primary" /> Nos Créateurs Vedettes
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-              {topStreamers.slice(0,6).map((streamer) => ( // Show up to 6 streamers
+              {topStreamers.slice(0,6).map((streamer) => ( 
                 <StreamerCard key={streamer.id} streamer={streamer} />
               ))}
             </div>
-            {/* Placeholder for "View All Streamers" button if needed */}
+             {topStreamers.length === 0 && (
+                <p className="text-muted-foreground text-center py-8">Découvrez bientôt nos créateurs vedettes.</p>
+            )}
           </div>
         </section>
         
-        {/* Upcoming Streams Section Placeholder */}
+        {/* Upcoming Streams Section */}
         <section className="py-12 md:py-16 bg-primary/5">
-          <div className="container text-center">
-            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-6 flex items-center justify-center">
-                <CalendarDays className="mr-3 h-8 w-8 text-primary" /> À ne pas manquer
-            </h2>
-            <p className="text-muted-foreground mb-6 max-w-xl mx-auto">
-                Découvrez les streams et événements spéciaux programmés par vos créateurs préférés.
-                (Fonctionnalité bientôt disponible)
-            </p>
-            <div className="grid md:grid-cols-3 gap-6 opacity-50">
-                {[1,2,3].map(i => (
-                    <Card key={i} className="p-6 shadow-md">
-                        <CardHeader>
-                            <Image src={`https://picsum.photos/seed/upcoming${i}/300/150`} width={300} height={150} alt="Stream à venir" className="rounded-md mb-3" data-ai-hint="event placeholder"/>
-                            <CardTitle>Événement Spécial {i}</CardTitle>
-                            <CardDescription>Par Créateur Populaire - Le 30 Mai à 20h00</CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                            <Button disabled>M'alerter (Bientôt)</Button>
-                        </CardContent>
-                    </Card>
-                ))}
+          <div className="container">
+            <div className="text-center mb-10">
+              <h2 className="text-2xl md:text-3xl font-bold text-foreground flex items-center justify-center">
+                <CalendarDays className="mr-3 h-8 w-8 text-primary" /> Événements à Venir
+              </h2>
+              <p className="text-muted-foreground mt-2 max-w-xl mx-auto">
+                Ne manquez pas nos prochains streams et événements spéciaux. La fonctionnalité "M'alerter" arrive bientôt !
+              </p>
             </div>
+            {plannedStreams.length > 0 ? (
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {plannedStreams.map((stream) => (
+                    <PlannedStreamCard key={stream.id} stream={stream} />
+                ))}
+                </div>
+            ) : (
+                <p className="text-muted-foreground text-center py-8">Aucun événement spécial programmé pour le moment. Revenez bientôt !</p>
+            )}
           </div>
         </section>
 

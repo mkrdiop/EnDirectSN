@@ -136,3 +136,56 @@ export const topStreamers: TopStreamer[] = [
     isLive: true,
   }
 ];
+
+
+export interface PlannedStream {
+  id: string;
+  title: string;
+  streamerName: string;
+  streamerAvatarUrl: string;
+  streamerAvatarAiHint: string;
+  category: string;
+  scheduledTime: string; 
+  thumbnailUrl: string;
+  aiHint: string;
+  description: string;
+}
+
+export const plannedStreams: PlannedStream[] = [
+  {
+    id: "plan1",
+    title: "Lancement Exclusif Album",
+    streamerName: "MusicienTalentueux",
+    streamerAvatarUrl: "https://picsum.photos/seed/avatar4/60/60",
+    streamerAvatarAiHint: "musician avatar",
+    category: "Musique",
+    scheduledTime: "Vendredi prochain à 21h00",
+    thumbnailUrl: "https://picsum.photos/seed/plan1/400/225",
+    aiHint: "music launch event",
+    description: "Soyez les premiers à découvrir mon nouvel album lors d'un événement live spécial !"
+  },
+  {
+    id: "plan2",
+    title: "Masterclass: L'Art du Pitch",
+    streamerName: "AnalysteEco",
+    streamerAvatarUrl: "https://picsum.photos/seed/avatar3/60/60",
+    streamerAvatarAiHint: "analyst avatar",
+    category: "Business & Tech",
+    scheduledTime: "Le 25 Juillet à 19h00",
+    thumbnailUrl: "https://picsum.photos/seed/plan2/400/225",
+    aiHint: "business masterclass",
+    description: "Apprenez à présenter vos idées de manière impactante. Session interactive avec Q&R."
+  },
+  {
+    id: "plan3",
+    title: "Tournoi Spécial 'CyberPunk Dakar'",
+    streamerName: "GamerProSN",
+    streamerAvatarUrl: "https://picsum.photos/seed/avatar1/60/60",
+    streamerAvatarAiHint: "gamer avatar",
+    category: "Gaming",
+    scheduledTime: "Ce Samedi à 15h00",
+    thumbnailUrl: "https://picsum.photos/seed/plan3/400/225",
+    aiHint: "gaming tournament",
+    description: "Grand tournoi communautaire avec des prix à gagner. Inscrivez-vous vite !"
+  }
+];
