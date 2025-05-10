@@ -105,3 +105,4 @@ export function StreamCard({ stream, onUnlockStream, isUnlocked }: StreamCardPro
     </Card>
   );
 }
+

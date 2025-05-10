@@ -26,19 +26,19 @@ const LandingNavbar = () => {
           </Link>
           <Button variant="outline" asChild>
             <Link href="/viewers">
-              <span>Espace Spectateur</span>
+              Espace Spectateur
             </Link>
           </Button>
           <Button asChild>
             <Link href="/dashboard">
-              <span>Tableau de Bord Créateur</span>
+              Tableau de Bord Créateur
             </Link>
           </Button>
         </nav>
         <div className="md:hidden">
            <Button asChild variant="outline">
             <Link href="/dashboard">
-              <span>Accès Streamer</span>
+              Accès Streamer
             </Link>
           </Button>
         </div>
@@ -144,12 +144,12 @@ export default function StreamerLandingPage() {
             <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" asChild className="bg-primary hover:bg-primary/90 text-primary-foreground">
                 <Link href="/dashboard">
-                  <span>Commencez Maintenant</span>
+                  Commencez Maintenant
                 </Link>
               </Button>
               <Button size="lg" variant="outline" asChild>
                 <Link href="#fonctionnalites">
-                  <span>Découvrir les Fonctionnalités</span>
+                  Découvrir les Fonctionnalités
                 </Link>
               </Button>
             </div>
@@ -261,7 +261,7 @@ export default function StreamerLandingPage() {
             <div className="mt-10">
               <Button size="lg" variant="secondary" asChild className="text-secondary-foreground hover:bg-secondary/90">
                 <Link href="/dashboard">
-                  <span>Créer Mon Compte Streamer</span>
+                  Créer Mon Compte Streamer
                 </Link>
               </Button>
             </div>

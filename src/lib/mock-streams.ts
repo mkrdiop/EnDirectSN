@@ -128,3 +128,4 @@ export const getStreamsByCategory = (category: string): Stream[] => {
   }
   return mockStreams.filter(s => s.category === category && s.isLive);
 };
+
