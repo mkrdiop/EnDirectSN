@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { CreditCard, DollarSign, AlertTriangle } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function PaymentsPage() {
   return (
@@ -47,7 +48,7 @@ export default function PaymentsPage() {
               <p className="text-muted-foreground mb-2">
                 Consultez vos revenus et gérez vos paramètres de paiement. Les fonds sont transférés de manière sécurisée via Orange Money.
               </p>
-              <Button disabled>Voir les Revenus (Bientôt disponible)</Button>
+              <Button disabled>Voir les Virements (Bientôt disponible)</Button>
             </div>
           </CardContent>
         </Card>
@@ -59,24 +60,24 @@ export default function PaymentsPage() {
               Aperçu des Revenus
             </CardTitle>
             <CardDescription>
-              Suivez vos revenus issus des streams payants.
+              Suivez vos revenus issus des streams payants. (Données de démonstration)
             </CardDescription>
           </CardHeader>
           <CardContent className="text-center">
-            <p className="text-4xl font-bold text-primary">0 CFA</p>
+            <p className="text-4xl font-bold text-primary">125,000 CFA</p>
             <p className="text-muted-foreground mt-1">Revenus Totaux (30 derniers jours)</p>
             <div className="mt-6 grid grid-cols-2 gap-4 text-sm">
               <div>
-                <p className="font-semibold">0</p>
+                <p className="font-semibold">25</p>
                 <p className="text-muted-foreground">Streams Payants</p>
               </div>
               <div>
-                <p className="font-semibold">0</p>
-                <p className="text-muted-foreground">Abonnés</p>
+                <p className="font-semibold">150</p>
+                <p className="text-muted-foreground">Transactions</p>
               </div>
             </div>
-            <Button variant="outline" className="mt-6" disabled>
-              Voir le Rapport Détaillé (Bientôt disponible)
+            <Button asChild variant="outline" className="mt-6">
+              <Link href="/payments/report">Voir le Rapport Détaillé</Link>
             </Button>
           </CardContent>
         </Card>
