@@ -1,5 +1,4 @@
 
-
 "use client";
 
 import Link from "next/link";
@@ -32,13 +31,13 @@ import {
   FileText,
   DollarSign,
   Scissors,
-  Tv2, // Added for "Streams en Direct"
-  Wallet, // Added for "Mon Portefeuille"
-  Users, // For general "Espace Spectateur"
+  Tv2, 
+  Wallet, 
+  Users, 
 } from "lucide-react";
 
 const streamerNavItems = [
-  { href: "/", label: "Tableau de Bord", icon: LayoutDashboard },
+  { href: "/dashboard", label: "Tableau de Bord", icon: LayoutDashboard },
   { href: "/streaming-settings", label: "Configuration Stream", icon: Settings },
   { href: "/multistreaming", label: "Multistreaming & Webinaire", icon: Share2 },
   { href: "/ai-highlights", label: "Moments Forts IA", icon: Sparkles },
@@ -76,7 +75,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                 <Link href={item.href} legacyBehavior passHref>
                   <SidebarMenuButton
                     asChild
-                    isActive={pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href))}
+                    isActive={pathname === item.href || (item.href !== "/dashboard" && pathname.startsWith(item.href))}
                     tooltip={{ children: item.label, side: "right", align: "center" }}
                   >
                     <a>
@@ -132,4 +131,3 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     </>
   );
 }
-

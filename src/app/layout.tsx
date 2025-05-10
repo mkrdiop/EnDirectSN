@@ -2,8 +2,7 @@
 import type {Metadata} from 'next';
 import {Geist, Geist_Mono} from 'next/font/google';
 import './globals.css';
-import { SidebarProvider } from '@/components/ui/sidebar';
-import { AppShell } from '@/components/app-shell';
+// Removed SidebarProvider and AppShell imports
 import { Toaster } from "@/components/ui/toaster"
 
 const geistSans = Geist({
@@ -29,14 +28,10 @@ export default function RootLayout({
   return (
     <html lang="fr" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`} suppressHydrationWarning={true}>
-        <SidebarProvider defaultOpen>
-          <AppShell>
-            {children}
-          </AppShell>
-        </SidebarProvider>
+        {/* SidebarProvider and AppShell are removed from here */}
+        {children}
         <Toaster />
       </body>
     </html>
   );
 }
-
