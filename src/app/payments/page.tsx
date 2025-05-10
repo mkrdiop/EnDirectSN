@@ -10,8 +10,8 @@ export default function PaymentsPage() {
   return (
     <div className="container mx-auto">
       <PageHeader
-        title="Paiements & Monétisation"
-        description="Gérez vos revenus et intégrez Sonatel Orange Money pour des paiements fluides."
+        title="Paiements & Monétisation (Streamer)"
+        description="Gérez vos revenus de streamer et intégrez Sonatel Orange Money pour des paiements fluides."
         icon={CreditCard}
       />
 
@@ -44,7 +44,7 @@ export default function PaymentsPage() {
               <Button disabled>Configurer la Tarification (Bientôt disponible)</Button>
             </div>
             <div>
-              <h3 className="font-semibold text-lg mb-2">Paiements</h3>
+              <h3 className="font-semibold text-lg mb-2">Paiements Reçus</h3>
               <p className="text-muted-foreground mb-2">
                 Consultez vos revenus et gérez vos paramètres de paiement. Les fonds sont transférés de manière sécurisée via Orange Money.
               </p>
@@ -57,7 +57,7 @@ export default function PaymentsPage() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <DollarSign className="h-6 w-6 text-primary" />
-              Aperçu des Revenus
+              Aperçu des Revenus de Streamer
             </CardTitle>
             <CardDescription>
               Suivez vos revenus issus des streams payants. (Données de démonstration)
@@ -69,15 +69,15 @@ export default function PaymentsPage() {
             <div className="mt-6 grid grid-cols-2 gap-4 text-sm">
               <div>
                 <p className="font-semibold">25</p>
-                <p className="text-muted-foreground">Streams Payants</p>
+                <p className="text-muted-foreground">Streams Monétisés</p>
               </div>
               <div>
                 <p className="font-semibold">150</p>
-                <p className="text-muted-foreground">Transactions</p>
+                <p className="text-muted-foreground">Transactions Spectateurs</p>
               </div>
             </div>
             <Button asChild variant="outline" className="mt-6">
-              <Link href="/payments/report">Voir le Rapport Détaillé</Link>
+              <Link href="/payments/report">Voir le Rapport Détaillé des Revenus</Link>
             </Button>
           </CardContent>
         </Card>

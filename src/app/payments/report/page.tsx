@@ -27,12 +27,12 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 const transactionsData = [
-  { id: "TXN001", date: "2024-06-15", description: "Accès - Concert Live Acoustique", amount: 2500, status: "Payé" },
-  { id: "TXN002", date: "2024-06-18", description: "Abonnement Mensuel VIP", amount: 10000, status: "Payé" },
-  { id: "TXN003", date: "2024-06-20", description: "Accès - Webinaire Tech", amount: 1500, status: "Payé" },
-  { id: "TXN004", date: "2024-06-22", description: "Pourboire - Stream 'Cuisine Sénégalaise'", amount: 500, status: "Payé" },
-  { id: "TXN005", date: "2024-06-25", description: "Accès - Masterclass Entrepreneuriat", amount: 7500, status: "En attente" },
-  { id: "TXN006", date: "2024-06-28", description: "Accès - Session Q&R Exclusive", amount: 3000, status: "Payé" },
+  { id: "TXN001", date: "2024-06-15", description: "Accès - Concert Live Acoustique", amount: 2500, status: "Payé", sourceStream: "Concert Live" },
+  { id: "TXN002", date: "2024-06-18", description: "Abonnement Mensuel VIP", amount: 10000, status: "Payé", sourceStream: "Accès VIP Global"},
+  { id: "TXN003", date: "2024-06-20", description: "Accès - Webinaire Tech", amount: 1500, status: "Payé", sourceStream: "Webinaire Tech" },
+  { id: "TXN004", date: "2024-06-22", description: "Pourboire - Stream 'Cuisine Sénégalaise'", amount: 500, status: "Payé", sourceStream: "Cuisine SN" },
+  { id: "TXN005", date: "2024-06-25", description: "Accès - Masterclass Entrepreneuriat", amount: 7500, status: "En attente", sourceStream: "Masterclass Biz" },
+  { id: "TXN006", date: "2024-06-28", description: "Accès - Session Q&R Exclusive", amount: 3000, status: "Payé", sourceStream: "Q&R Exclusif" },
 ];
 
 export default function PaymentsReportPage() {
@@ -43,8 +43,8 @@ export default function PaymentsReportPage() {
   return (
     <div className="container mx-auto">
       <PageHeader
-        title="Rapport Détaillé des Paiements"
-        description="Analysez vos revenus et l'historique de vos transactions."
+        title="Rapport Détaillé des Revenus (Streamer)"
+        description="Analysez vos revenus de streamer et l'historique des transactions de vos spectateurs."
         icon={FileText}
       />
 
@@ -52,7 +52,7 @@ export default function PaymentsReportPage() {
         <Button asChild variant="outline">
           <Link href="/payments">
             <ArrowLeft className="mr-2 h-4 w-4" />
-            Retour aux Paiements
+            Retour aux Paiements Streamer
           </Link>
         </Button>
       </div>
@@ -66,31 +66,31 @@ export default function PaymentsReportPage() {
           <CardContent>
             <div className="text-2xl font-bold">{totalRevenue.toLocaleString('fr-FR')} CFA</div>
             <p className="text-xs text-muted-foreground">
-              Basé sur les données de démonstration.
+              Basé sur les données de démonstration de vos streams.
             </p>
           </CardContent>
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Nombre de Transactions</CardTitle>
+            <CardTitle className="text-sm font-medium">Transactions des Spectateurs</CardTitle>
             <TrendingUp className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{totalTransactions}</div>
             <p className="text-xs text-muted-foreground">
-              Transactions enregistrées.
+              Transactions enregistrées pour vos contenus.
             </p>
           </CardContent>
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Valeur Moyenne / Transaction</CardTitle>
+            <CardTitle className="text-sm font-medium">Panier Moyen / Transaction</CardTitle>
             <BarChart3 className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{averageTransactionValue.toLocaleString('fr-FR', { maximumFractionDigits: 0 })} CFA</div>
             <p className="text-xs text-muted-foreground">
-              Moyenne calculée sur les transactions.
+              Valeur moyenne des transactions spectateurs.
             </p>
           </CardContent>
         </Card>
@@ -99,7 +99,7 @@ export default function PaymentsReportPage() {
       <Card className="mb-8 shadow-lg">
         <CardHeader>
           <CardTitle>Évolution des Revenus (6 derniers mois)</CardTitle>
-          <CardDescription>Aperçu des revenus mensuels. (Données de démonstration)</CardDescription>
+          <CardDescription>Aperçu de vos revenus mensuels. (Données de démonstration)</CardDescription>
         </CardHeader>
         <CardContent className="pl-2">
           <ChartContainer config={chartConfig} className="h-[300px] w-full">
@@ -126,8 +126,8 @@ export default function PaymentsReportPage() {
 
       <Card className="shadow-lg">
         <CardHeader>
-          <CardTitle>Historique des Transactions Récentes</CardTitle>
-          <CardDescription>Liste des dernières transactions enregistrées. (Données de démonstration)</CardDescription>
+          <CardTitle>Historique des Transactions Spectateurs</CardTitle>
+          <CardDescription>Liste des dernières transactions pour vos contenus. (Données de démonstration)</CardDescription>
         </CardHeader>
         <CardContent>
           <Table>
@@ -135,7 +135,7 @@ export default function PaymentsReportPage() {
               <TableRow>
                 <TableHead>ID Transaction</TableHead>
                 <TableHead>Date</TableHead>
-                <TableHead>Description</TableHead>
+                <TableHead>Description/Stream</TableHead>
                 <TableHead className="text-right">Montant (CFA)</TableHead>
                 <TableHead>Statut</TableHead>
               </TableRow>

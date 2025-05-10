@@ -1,10 +1,5 @@
 
 
-// NOTE: This component is not needed due to changes in the prompt that removed the use of route groups.
-// The AppShell functionality is now integrated directly into the RootLayout or specific page layouts.
-// For this specific implementation, Sidebar and main content structure will be part of RootLayout and individual page.tsx files.
-// Creating a placeholder to satisfy the thought process. In a real scenario, this might be removed or refactored.
-
 "use client";
 
 import Link from "next/link";
@@ -16,6 +11,7 @@ import {
   SidebarMenu,
   SidebarMenuItem,
   SidebarMenuButton,
+  SidebarSeparator,
   SidebarTrigger,
   useSidebar,
 } from "@/components/ui/sidebar";
@@ -36,17 +32,26 @@ import {
   FileText,
   DollarSign,
   Scissors,
+  Tv2, // Added for "Streams en Direct"
+  Wallet, // Added for "Mon Portefeuille"
+  Users, // For general "Espace Spectateur"
 } from "lucide-react";
 
-const navItems = [
+const streamerNavItems = [
   { href: "/", label: "Tableau de Bord", icon: LayoutDashboard },
   { href: "/streaming-settings", label: "Configuration Stream", icon: Settings },
-  { href: "/multistreaming", label: "Multistreaming", icon: Share2 },
+  { href: "/multistreaming", label: "Multistreaming & Webinaire", icon: Share2 },
   { href: "/ai-highlights", label: "Moments Forts IA", icon: Sparkles },
   { href: "/ai-shorts", label: "Vidéos Courtes IA", icon: Scissors },
   { href: "/ai-translation", label: "Traduction IA", icon: Languages },
-  { href: "/payments", label: "Paiements", icon: CreditCard },
+  { href: "/payments", label: "Paiements Streamer", icon: CreditCard },
 ];
+
+const viewerNavItems = [
+  { href: "/live-streams", label: "Streams en Direct", icon: Tv2 },
+  { href: "/account/wallet", label: "Mon Portefeuille", icon: Wallet },
+];
+
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   const { isMobile } = useSidebar();
@@ -65,12 +70,39 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         </SidebarHeader>
         <SidebarContent>
           <SidebarMenu>
-            {navItems.map((item) => (
+            {/* Streamer Section */}
+            {streamerNavItems.map((item) => (
               <SidebarMenuItem key={item.href}>
                 <Link href={item.href} legacyBehavior passHref>
                   <SidebarMenuButton
                     asChild
-                    isActive={pathname === item.href}
+                    isActive={pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href))}
+                    tooltip={{ children: item.label, side: "right", align: "center" }}
+                  >
+                    <a>
+                      <item.icon />
+                      <span>{item.label}</span>
+                    </a>
+                  </SidebarMenuButton>
+                </Link>
+              </SidebarMenuItem>
+            ))}
+            
+            <SidebarSeparator className="my-2" />
+            
+            {/* Viewer Section Label - only shows if sidebar is expanded */}
+             <SidebarMenuItem className="px-2 group-data-[collapsible=icon]:hidden">
+                <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wider flex items-center gap-2">
+                    <Users className="h-4 w-4"/> Espace Spectateur
+                </div>
+            </SidebarMenuItem>
+
+            {viewerNavItems.map((item) => (
+              <SidebarMenuItem key={item.href}>
+                <Link href={item.href} legacyBehavior passHref>
+                  <SidebarMenuButton
+                    asChild
+                    isActive={pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href))}
                     tooltip={{ children: item.label, side: "right", align: "center" }}
                   >
                     <a>
