@@ -24,8 +24,11 @@ const LandingNavbar = () => {
           <Link href="#pourquoi-nous" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
             Pourquoi Nous?
           </Link>
+          <Button variant="outline" asChild>
+            <Link href="/viewers">Espace Spectateur</Link>
+          </Button>
           <Button asChild>
-            <Link href="/dashboard">Tableau de Bord</Link>
+            <Link href="/dashboard">Tableau de Bord Créateur</Link>
           </Button>
         </nav>
         <div className="md:hidden">
@@ -108,6 +111,7 @@ const whyUsPoints = [
     icon: BarChart,
     title: "Technologie de Pointe et IA",
     description: "Bénéficiez d'outils IA innovants, d'une qualité HD et d'une plateforme stable pour des streams professionnels.",
+    dataAiHint: "AI editing",
   },
   {
     icon: Users,
@@ -116,7 +120,7 @@ const whyUsPoints = [
   },
 ];
 
-export default function LandingPage() {
+export default function StreamerLandingPage() {
   return (
     <div className="flex flex-col min-h-screen bg-background">
       <LandingNavbar />
@@ -257,4 +261,3 @@ export default function LandingPage() {
     </div>
   );
 }
-
