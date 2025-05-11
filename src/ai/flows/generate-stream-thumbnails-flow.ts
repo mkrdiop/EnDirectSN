@@ -21,11 +21,11 @@ const GenerateStreamThumbnailsInputSchema = z.object({
     .string()
     .min(1, "La description du stream est requise.")
     .describe('Une description détaillée du contenu du stream.'),
-  streamFrameDataUri: z
-    .string()
+  streamFramesDataUris: z
+    .array(z.string())
     .optional()
     .describe(
-      "Un URI de données d'une image représentative du stream (par exemple, une capture d'écran). Format attendu : 'data:<mimetype>;base64,<encoded_data>'."
+      "Une liste d'URIs de données d'images représentatives du stream (par exemple, des captures d'écran). Format attendu pour chaque URI : 'data:<mimetype>;base64,<encoded_data>'."
     ),
   numberOfThumbnails: z
     .number()
@@ -62,29 +62,34 @@ const generateIdeasPrompt = ai.definePrompt({
 
     Informations sur le stream :
     Description : {{{streamDescription}}}
-    {{#if streamFrameDataUri}}
-    Image de référence du stream : {{media url=streamFrameDataUri}}
-    Utilisez cette image comme inspiration pour le style visuel et les éléments clés, mais proposez des idées variées.
+
+    {{#if streamFramesDataUris}}
+    Images de référence du stream (analyser toutes les images pour inspiration et composition potentielle) :
+    {{#each streamFramesDataUris}}
+      {{media url=this}}
+    {{/each}}
+    À partir de ces images et de la description, générez des prompts visuels pour des miniatures.
+    Suggérez des compositions, par exemple en détourant une personne d'une image et en la plaçant sur un fond inspiré d'une autre,
+    ou en combinant des thèmes et styles des différentes images.
+    Si des personnes sont proéminentes, les prompts peuvent les mettre en valeur, potentiellement détourées (isolées de leur fond original) ou avec un fond stylisé.
+    {{else}}
+    Basez vos idées uniquement sur la description du stream.
     {{/if}}
 
     Pour chaque concept, fournissez :
-    1.  'visualPrompt': Un prompt détaillé et spécifique, optimisé pour un modèle de génération d'images IA (comme Gemini ou DALL-E). Ce prompt doit décrire la scène, les couleurs, l'ambiance, le style et tout texte pertinent à inclure dans la miniature. Le texte doit être court et percutant.
+    1.  'visualPrompt': Un prompt détaillé et spécifique, optimisé pour un modèle de génération d'images IA (comme Gemini). Ce prompt doit décrire la scène, les couleurs, l'ambiance, le style et tout texte pertinent à inclure dans la miniature. Le texte doit être court et percutant.
     2.  'description': Une brève description de l'idée derrière la miniature.
 
     Assurez-vous que les prompts visuels sont suffisamment distincts pour produire des miniatures différentes.
     Les miniatures doivent être visuellement attrayantes, inciter au clic et représenter fidèlement l'essence du stream.
     Concentrez-vous sur des compositions dynamiques et claires.
 
-    Exemple de sortie pour numberOfThumbnails = 2 :
+    Exemple de sortie pour numberOfThumbnails = 1 et des images fournies:
     {
       "ideas": [
         {
-          "visualPrompt": "Un plan rapproché dynamique d'un chef sénégalais souriant, présentant un plat coloré de Thieboudienne fumant. Arrière-plan flou d'une cuisine animée. Texte en surimpression : 'Saveurs du Sénégal'. Couleurs vives et chaudes.",
-          "description": "Met l'accent sur le plat et le chef, ambiance chaleureuse."
-        },
-        {
-          "visualPrompt": "Un joueur de jeux vidéo avec un casque, visage concentré illuminé par l'écran, manette en main. Logo du jeu 'CyberPunk Dakar' en arrière-plan avec des néons. Texte : 'LIVE MAINTENANT'. Style futuriste et sombre.",
-          "description": "Capture l'intensité du gaming, style moderne."
+          "visualPrompt": "Un streamer souriant (visible sur l'une des images de référence), détouré et placé sur un fond abstrait et dynamique aux couleurs vives. Texte en surimpression : 'Énergie Pure!'. Style moderne et épuré.",
+          "description": "Combine le streamer d'une image avec une ambiance d'une autre pour un look dynamique."
         }
       ]
     }
@@ -107,29 +112,34 @@ const generateStreamThumbnailsFlow = ai.defineFlow(
     const generatedThumbnails: GeneratedThumbnailSchema[] = [];
 
     for (const idea of ideasOutput.ideas) {
-      try {
-        // Generate image using the visual prompt from the idea
-        console.log(`Generating image for prompt: ${idea.visualPrompt}`);
+      try
+      {
+        // Prepare prompt for image generation, including an input image if provided
+        let imageGenPromptParts: any[] = [{ text: idea.visualPrompt }];
+        if (input.streamFramesDataUris && input.streamFramesDataUris.length > 0) {
+          // Use the first uploaded image as the primary visual context for the generation model
+          // This aligns with how Gemini Flash handles image input for generation/editing tasks
+          imageGenPromptParts.unshift({ media: { url: input.streamFramesDataUris[0] } });
+        }
+        
+        console.log(`Generating image with prompt: ${JSON.stringify(imageGenPromptParts)}`);
         const { media } = await ai.generate({
-          model: 'googleai/gemini-2.0-flash-exp', // Ensure this model supports image generation
-          prompt: idea.visualPrompt,
+          model: 'googleai/gemini-2.0-flash-exp',
+          prompt: imageGenPromptParts,
           config: {
-            responseModalities: ['TEXT', 'IMAGE'], // Must request TEXT as well
-            // Adjust safety settings if needed, though default should be fine for thumbnails
-             safetySettings: [
+            responseModalities: ['TEXT', 'IMAGE'],
+            safetySettings: [
               { category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT', threshold: 'BLOCK_LOW_AND_ABOVE' },
               { category: 'HARM_CATEGORY_HATE_SPEECH', threshold: 'BLOCK_MEDIUM_AND_ABOVE' },
               { category: 'HARM_CATEGORY_HARASSMENT', threshold: 'BLOCK_MEDIUM_AND_ABOVE' },
               { category: 'HARM_CATEGORY_DANGEROUS_CONTENT', threshold: 'BLOCK_MEDIUM_AND_ABOVE'},
             ],
           },
-          // Providing a context image if available
-          context: input.streamFrameDataUri ? [{ media: { url: input.streamFrameDataUri } }] : undefined,
         });
         
         if (media && media.url) {
           generatedThumbnails.push({
-            imageDataUri: media.url, // This will be a data URI
+            imageDataUri: media.url,
             promptUsed: idea.visualPrompt,
           });
         } else {
@@ -137,14 +147,15 @@ const generateStreamThumbnailsFlow = ai.defineFlow(
         }
       } catch (error) {
         console.error(`Erreur lors de la génération d'image pour le prompt "${idea.visualPrompt}":`, error);
-        // Continue to next idea if one fails, or decide to throw
+        // Continue to next idea if one fails
       }
     }
 
     if (generatedThumbnails.length === 0) {
-      throw new Error("Aucune miniature n'a pu être générée. Veuillez vérifier les prompts ou l'image de référence.");
+      throw new Error("Aucune miniature n'a pu être générée. Veuillez vérifier les prompts ou les images de référence.");
     }
 
     return { thumbnails: generatedThumbnails };
   }
 );
+
