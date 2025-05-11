@@ -2,7 +2,7 @@
 import { PageHeader } from "@/components/page-header";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowRight, LayoutDashboard, Settings, Share2, Sparkles, Languages, CreditCard, Scissors } from "lucide-react";
+import { ArrowRight, LayoutDashboard, Settings, Share2, Sparkles, Languages, CreditCard, Scissors, ImageIcon } from "lucide-react";
 import Link from "next/link";
 
 const features = [
@@ -33,6 +33,13 @@ const features = [
     icon: Scissors,
     href: "/ai-shorts",
     cta: "Créer des Vidéos Courtes",
+  },
+  {
+    title: "Générateur de Miniatures IA",
+    description: "Générez des miniatures attrayantes pour vos vidéos de stream avec l'IA.",
+    icon: ImageIcon,
+    href: "/stream-thumbnails",
+    cta: "Créer des Miniatures",
   },
   {
     title: "Traduction IA",

@@ -33,7 +33,8 @@ import {
   Scissors,
   Tv2, 
   Wallet, 
-  Users, 
+  Users,
+  ImageIcon, 
 } from "lucide-react";
 
 const streamerNavItems = [
@@ -42,6 +43,7 @@ const streamerNavItems = [
   { href: "/multistreaming", label: "Multistreaming & Webinaire", icon: Share2 },
   { href: "/ai-highlights", label: "Moments Forts IA", icon: Sparkles },
   { href: "/ai-shorts", label: "Vidéos Courtes IA", icon: Scissors },
+  { href: "/stream-thumbnails", label: "Miniatures IA", icon: ImageIcon },
   { href: "/ai-translation", label: "Traduction IA", icon: Languages },
   { href: "/payments", label: "Paiements Streamer", icon: CreditCard },
 ];
