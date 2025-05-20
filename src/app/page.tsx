@@ -4,8 +4,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { ArrowRight, Users, Play, Tv, Mic, BarChart3, Palette, Cpu } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
+import { ArrowRight, Users, Play, Music2 as Mic, BarChart3, Palette, Cpu, Headphones, Disc3 } from "lucide-react"; // Changed Mic to Music2, Users to Headphones, Play to Disc3 for thematic icons
 import { Logo } from "@/components/logo";
 import React from "react";
 import { Badge } from "@/components/ui/badge";
@@ -23,12 +23,12 @@ const MainLandingNavbar = () => {
           </Button>
           <Button variant="ghost" asChild>
             <Link href="/viewers">
-              <Users className="mr-2 h-4 w-4" /> Pour les Spectateurs
+              <Headphones className="mr-2 h-4 w-4" /> Pour les Fans
             </Link>
           </Button>
           <Button asChild>
             <Link href="/explore">
-             <Play className="mr-2 h-4 w-4" /> Explorer les Streams
+             <Play className="mr-2 h-4 w-4" /> Explorer la Musique
             </Link>
           </Button>
         </nav>
@@ -52,10 +52,10 @@ const MainLandingFooter = () => {
           <Logo />
         </div>
         <p className="text-sm text-muted-foreground">
-          &copy; {new Date().getFullYear()} EnDirectAuSénégal. Tous droits réservés.
+          &copy; {new Date().getFullYear()} Zikcut. Tous droits réservés.
         </p>
         <p className="text-xs text-muted-foreground mt-1">
-          La plateforme de streaming qui connecte le Sénégal au monde.
+          La plateforme où la musique rencontre l'intelligence artificielle.
         </p>
          <div className="mt-6 text-xs text-muted-foreground space-x-3">
             <Link href="#" className="hover:text-primary">À Propos</Link>
@@ -79,29 +79,29 @@ export default function MainLandingPage() {
         <section className="relative py-20 md:py-32 bg-gradient-to-br from-primary/5 via-background to-background overflow-hidden">
            <div className="absolute inset-0 opacity-10">
             <Image
-                src="https://picsum.photos/seed/mainhero-bg/1920/1080"
-                alt="Fond abstrait"
+                src="https://placehold.co/1920x1080.png"
+                alt="Fond abstrait musical"
                 layout="fill"
                 objectFit="cover"
-                data-ai-hint="abstract background pattern"
+                data-ai-hint="abstract music pattern"
             />
           </div>
           <div className="container text-center relative z-10">
             <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-foreground">
-              Bienvenue sur <span className="text-primary">EnDirectAuSénégal</span>
+              Bienvenue sur <span className="text-primary">Zikcut</span>
             </h1>
             <p className="mt-6 text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
-              La plateforme où créateurs et spectateurs se rencontrent. Diffusez vos passions, découvrez des contenus uniques, et vivez le direct comme jamais auparavant.
+              La plateforme où créateurs de musique, influenceurs et fans se rencontrent. Créez avec l'IA, découvrez des sons uniques, et vivez la musique comme jamais auparavant.
             </p>
             <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" asChild className="bg-primary hover:bg-primary/90 text-primary-foreground">
                 <Link href="/creators">
-                  <Mic className="mr-2 h-5 w-5" /> Devenir Créateur
+                  <Mic className="mr-2 h-5 w-5" /> Espace Créateur
                 </Link>
               </Button>
               <Button size="lg" variant="outline" asChild>
                 <Link href="/explore">
-                  <Play className="mr-2 h-5 w-5" /> Explorer les Streams
+                  <Play className="mr-2 h-5 w-5" /> Explorer la Musique
                 </Link>
               </Button>
             </div>
@@ -113,68 +113,68 @@ export default function MainLandingPage() {
           <div className="container">
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div className="order-2 md:order-1">
-                <Badge variant="secondary" className="mb-3">Pour les Créateurs</Badge>
+                <Badge variant="secondary" className="mb-3">Pour les Créateurs de Musique</Badge>
                 <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
-                  Partagez Votre Talent, <span className="text-primary">Monétisez Votre Passion</span>
+                  Composez Votre Prochain Hit, <span className="text-primary">Partagez Votre Univers Sonore</span>
                 </h2>
                 <p className="text-lg text-muted-foreground mb-6">
-                  EnDirectAuSénégal vous offre les outils pour diffuser en HD, atteindre une large audience avec le multistreaming, et générer des revenus grâce à l'intégration Sonatel Orange Money. Nos fonctionnalités IA vous aident à créer des contenus engageants sans effort.
+                  Zikcut vous offre des outils IA pour générer des pistes audio et des clips vidéo, atteindre une large audience, et monétiser votre musique. Libérez votre créativité sans limites.
                 </p>
                 <ul className="space-y-3 text-muted-foreground mb-8">
-                    <li className="flex items-center gap-3"><Cpu className="h-5 w-5 text-primary" /> Outils IA pour moments forts et vidéos courtes.</li>
+                    <li className="flex items-center gap-3"><Cpu className="h-5 w-5 text-primary" /> Outils IA pour pistes audio, clips vidéo et pochettes.</li>
                     <li className="flex items-center gap-3"><BarChart3 className="h-5 w-5 text-primary" /> Modèle de revenus équitable : 5% de commission.</li>
-                    <li className="flex items-center gap-3"><Palette className="h-5 w-5 text-primary" /> Personnalisation avancée de vos streams.</li>
+                    <li className="flex items-center gap-3"><Palette className="h-5 w-5 text-primary" /> Personnalisation de vos projets musicaux.</li>
                 </ul>
                 <Button size="lg" asChild>
                   <Link href="/creators">
-                    En Savoir Plus & S'inscrire <ArrowRight className="ml-2 h-5 w-5" />
+                    Découvrir les Outils Créateur <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>
                 </Button>
               </div>
               <div className="order-1 md:order-2">
                 <Image
-                  src="https://picsum.photos/seed/creatorsection/600/500"
-                  alt="Streamer utilisant EnDirectAuSénégal"
+                  src="https://placehold.co/600x500.png"
+                  alt="Musicien utilisant Zikcut pour créer"
                   width={600}
                   height={500}
                   className="rounded-xl shadow-2xl object-cover"
-                  data-ai-hint="streamer workspace"
+                  data-ai-hint="musician creating AI"
                 />
               </div>
             </div>
           </div>
         </section>
 
-        {/* For Viewers Section */}
+        {/* For Fans/Consumers Section */}
         <section className="py-16 md:py-24 bg-muted/50">
           <div className="container">
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div>
                 <Image
-                  src="https://picsum.photos/seed/viewersection/600/500"
-                  alt="Spectateurs regardant un stream"
+                  src="https://placehold.co/600x500.png"
+                  alt="Fans écoutant de la musique sur Zikcut"
                   width={600}
                   height={500}
                   className="rounded-xl shadow-2xl object-cover"
-                  data-ai-hint="audience watching"
+                  data-ai-hint="fans listening music"
                 />
               </div>
               <div>
-                <Badge variant="secondary" className="mb-3">Pour les Spectateurs</Badge>
+                <Badge variant="secondary" className="mb-3">Pour les Fans & Influenceurs</Badge>
                 <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
-                  Découvrez le Meilleur du <span className="text-accent">Direct Sénégalais</span>
+                  Découvrez la Bande Son de <span className="text-accent">Demain, Aujourd'hui</span>
                 </h2>
                 <p className="text-lg text-muted-foreground mb-6">
-                  Plongez dans un univers de contenus variés : musique, culture, éducation, gaming, et bien plus. Interagissez en temps réel, soutenez vos créateurs favoris et profitez d'une expérience HD immersive.
+                  Plongez dans un univers de créations musicales originales, explorez des genres nouveaux et soutenez vos artistes et influenceurs préférés. Zikcut est votre porte d'entrée vers l'innovation musicale.
                 </p>
                  <ul className="space-y-3 text-muted-foreground mb-8">
-                    <li className="flex items-center gap-3"><Tv className="h-5 w-5 text-accent" /> Streams HD sur tous vos appareils.</li>
-                    <li className="flex items-center gap-3"><Users className="h-5 w-5 text-accent" /> Communautés vibrantes et interactives.</li>
-                    <li className="flex items-center gap-3"><Play className="h-5 w-5 text-accent" /> Accès facile et paiements sécurisés via Orange Money.</li>
+                    <li className="flex items-center gap-3"><Disc3 className="h-5 w-5 text-accent" /> Musique générée par IA et créations d'artistes émergents.</li>
+                    <li className="flex items-center gap-3"><Users className="h-5 w-5 text-accent" /> Connectez-vous avec les créateurs et influenceurs.</li>
+                    <li className="flex items-center gap-3"><Play className="h-5 w-5 text-accent" /> Accès facile et découverte personnalisée.</li>
                 </ul>
                 <Button size="lg" variant="outline" asChild>
                   <Link href="/viewers">
-                    Découvrir l'Expérience Spectateur <ArrowRight className="ml-2 h-5 w-5" />
+                    Explorer l'Expérience Fan <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>
                 </Button>
               </div>
@@ -185,9 +185,9 @@ export default function MainLandingPage() {
         {/* Platform Highlights Section */}
         <section className="py-16 md:py-24">
           <div className="container text-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Une Plateforme, <span className="text-primary">Deux Mondes Connectés</span></h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Zikcut : Là où la <span className="text-primary">Créativité Musicale Prend Vie</span></h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-12">
-              EnDirectAuSénégal est conçu pour enrichir l'écosystème du streaming au Sénégal et au-delà, en offrant des outils puissants aux créateurs et une expérience de visionnage exceptionnelle aux spectateurs.
+              Zikcut est conçu pour révolutionner l'écosystème musical en offrant des outils IA puissants aux créateurs et une expérience de découverte unique aux fans et influenceurs.
             </p>
             <div className="grid md:grid-cols-3 gap-8">
               <Card className="shadow-lg hover:shadow-primary/10 transition-shadow">
@@ -198,7 +198,7 @@ export default function MainLandingPage() {
                   <CardTitle>Créez Sans Limites</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <CardDescription>Des outils professionnels et IA pour des streams de qualité.</CardDescription>
+                  <CardDescription>Outils IA pour pistes audio, clips, pochettes et paroles.</CardDescription>
                 </CardContent>
               </Card>
               <Card className="shadow-lg hover:shadow-accent/10 transition-shadow">
@@ -209,7 +209,7 @@ export default function MainLandingPage() {
                   <CardTitle>Explorez & Vibrez</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <CardDescription>Une multitude de contenus live pour tous les goûts.</CardDescription>
+                  <CardDescription>Un catalogue infini de musique originale et innovante.</CardDescription>
                 </CardContent>
               </Card>
               <Card className="shadow-lg hover:shadow-secondary/10 transition-shadow">
@@ -217,10 +217,10 @@ export default function MainLandingPage() {
                   <div className="mx-auto p-3 bg-secondary/10 text-secondary rounded-full w-fit mb-2">
                     <Users className="h-8 w-8" />
                   </div>
-                  <CardTitle>Connectez-vous</CardTitle>
+                  <CardTitle>Connectez & Influencez</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <CardDescription>Rejoignez une communauté passionnée et engagez-vous.</CardDescription>
+                  <CardDescription>Rejoignez une communauté de passionnés et façonnez les tendances.</CardDescription>
                 </CardContent>
               </Card>
             </div>
@@ -233,4 +233,3 @@ export default function MainLandingPage() {
     </div>
   );
 }
-

@@ -7,7 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger, DialogClose } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogClose } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
 import { Wallet, PlusCircle, History, DollarSign } from "lucide-react";
 import React, { useState, useEffect } from "react";
@@ -95,7 +95,7 @@ export default function WalletPage() {
     
     toast({
       title: "Recharge Réussie!",
-      description: `Votre compte a été rechargé de ${data.amount.toLocaleString()} CFA. Nouveau solde: ${newBalance.toLocaleString()} CFA.`,
+      description: `Votre compte Zikcut a été rechargé de ${data.amount.toLocaleString()} CFA. Nouveau solde: ${newBalance.toLocaleString()} CFA.`,
     });
     reset();
     setIsRechargeDialogOpen(false);
@@ -104,8 +104,8 @@ export default function WalletPage() {
   return (
     <div className="container mx-auto">
       <PageHeader
-        title="Mon Portefeuille"
-        description="Gérez votre solde et consultez l'historique de vos transactions."
+        title="Mon Portefeuille Zikcut"
+        description="Gérez votre solde pour accéder à des contenus musicaux exclusifs et soutenir vos artistes préférés."
         icon={Wallet}
       />
 
@@ -126,9 +126,9 @@ export default function WalletPage() {
               </DialogTrigger>
               <DialogContent className="sm:max-w-[425px]">
                 <DialogHeader>
-                  <DialogTitle>Recharger Votre Compte</DialogTitle>
+                  <DialogTitle>Recharger Votre Compte Zikcut</DialogTitle>
                   <DialogDescription>
-                    Ajoutez des fonds à votre portefeuille pour accéder aux streams payants.
+                    Ajoutez des fonds à votre portefeuille pour acheter des pistes, albums ou soutenir des créateurs.
                   </DialogDescription>
                 </DialogHeader>
                 <form onSubmit={handleSubmit(handleRecharge)} className="space-y-4 py-4">
@@ -154,7 +154,7 @@ export default function WalletPage() {
                                 <SelectContent>
                                 <SelectItem value="orangemoney_sn">
                                     <div className="flex items-center gap-2">
-                                        <Image src="https://picsum.photos/seed/omlogo/20/20" alt="Orange Money" width={20} height={20} data-ai-hint="orange money" />
+                                        <Image src="https://placehold.co/20x20.png" alt="Orange Money" width={20} height={20} data-ai-hint="orange money" />
                                         Orange Money (Sénégal)
                                     </div>
                                 </SelectItem>
@@ -183,7 +183,7 @@ export default function WalletPage() {
             <CardTitle className="flex items-center gap-2">
               <History className="h-6 w-6 text-primary" /> Historique des Transactions
             </CardTitle>
-            <CardDescription>Vos 10 dernières transactions.</CardDescription>
+            <CardDescription>Vos 10 dernières transactions sur Zikcut.</CardDescription>
           </CardHeader>
           <CardContent>
             {transactionHistory.length > 0 ? (
@@ -206,7 +206,7 @@ export default function WalletPage() {
                     </TableCell>
                     <TableCell>
                        <Badge variant={tx.type === 'deposit' ? 'default' : 'destructive'} className={tx.type === 'deposit' ? 'bg-green-100 text-green-700 border-green-300' : 'bg-red-100 text-red-700 border-red-300'}>
-                        {tx.type === 'deposit' ? 'Dépôt' : 'Dépense'}
+                        {tx.type === 'deposit' ? 'Dépôt' : 'Achat/Dépense'}
                        </Badge>
                     </TableCell>
                   </TableRow>
@@ -223,4 +223,3 @@ export default function WalletPage() {
     </div>
   );
 }
-

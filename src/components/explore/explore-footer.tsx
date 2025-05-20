@@ -3,7 +3,7 @@
 
 import Link from "next/link";
 import { Logo } from "@/components/logo";
-import { PlaySquare, Smartphone, Tv, Github, Twitter, Facebook } from "lucide-react"; // Added some social icons
+import { Compass, Users, Mic2, Github, Twitter, Facebook, Headphones } from "lucide-react"; 
 
 export function ExploreFooter() {
   return (
@@ -13,19 +13,19 @@ export function ExploreFooter() {
          <Logo />
         </div>
         <p className="text-sm text-muted-foreground">
-          &copy; {new Date().getFullYear()} EnDirectAuSénégal. Tous droits réservés.
+          &copy; {new Date().getFullYear()} Zikcut. Tous droits réservés.
         </p>
         <p className="text-xs text-muted-foreground mt-1">
-          Votre portail vers le meilleur du streaming sénégalais et de la diaspora.
+          Votre portail vers l'avant-garde musicale.
         </p>
         <div className="mt-6 flex justify-center gap-5">
-          <Link href="/live-streams" className="text-muted-foreground hover:text-primary" aria-label="Explorer les streams">
+          <Link href="/explore-music" className="text-muted-foreground hover:text-primary" aria-label="Explorer la musique">
             <Compass className="h-5 w-5" />
           </Link>
-          <Link href="/(marketing)/viewers" className="text-muted-foreground hover:text-primary" aria-label="Page spectateurs">
-            <Users className="h-5 w-5" />
+          <Link href="/viewers" className="text-muted-foreground hover:text-primary" aria-label="Page fans">
+            <Headphones className="h-5 w-5" />
           </Link>
-          <Link href="/" className="text-muted-foreground hover:text-primary" aria-label="Page créateurs">
+          <Link href="/creators" className="text-muted-foreground hover:text-primary" aria-label="Page créateurs">
             <Mic2 className="h-5 w-5" />
           </Link>
         </div>
@@ -51,6 +51,3 @@ export function ExploreFooter() {
     </footer>
   );
 }
-
-// Adding missing icons for ExploreFooter
-import { Compass, Users, Mic2 } from "lucide-react";

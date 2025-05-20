@@ -21,35 +21,30 @@ import {
   LayoutDashboard,
   Settings,
   Share2,
-  Sparkles,
-  Languages,
+  Music2 as AiAudioIcon, // Renamed Sparkles to Music2
+  Film as AiVideoIcon, // Renamed Scissors to Film
+  Palette as AiAlbumArtIcon, // Renamed ImageIcon to Palette
+  FileText as AiLyricsIcon, // Renamed Languages to FileText
   CreditCard,
-  Home,
-  Video,
-  Radio,
-  MessageSquareText,
-  FileText,
-  DollarSign,
-  Scissors,
-  Tv2, 
+  LibraryMusic, // Renamed Tv2 to LibraryMusic
   Wallet, 
   Users,
-  ImageIcon, 
+  SlidersHorizontal, // Icon for Project Settings
 } from "lucide-react";
 
-const streamerNavItems = [
+const creatorNavItems = [
   { href: "/dashboard", label: "Tableau de Bord", icon: LayoutDashboard },
-  { href: "/streaming-settings", label: "Configuration Stream", icon: Settings },
-  { href: "/multistreaming", label: "Multistreaming & Webinaire", icon: Share2 },
-  { href: "/ai-highlights", label: "Moments Forts IA", icon: Sparkles },
-  { href: "/ai-shorts", label: "Vidéos Courtes IA", icon: Scissors },
-  { href: "/stream-thumbnails", label: "Miniatures IA", icon: ImageIcon },
-  { href: "/ai-translation", label: "Traduction IA", icon: Languages },
-  { href: "/payments", label: "Paiements Streamer", icon: CreditCard },
+  { href: "/project-settings", label: "Paramètres Projet", icon: SlidersHorizontal }, // Was streaming-settings
+  { href: "/distribution-tools", label: "Distribution & Partage", icon: Share2 }, // Was multistreaming
+  { href: "/ai-audio-generation", label: "Génération Audio IA", icon: AiAudioIcon }, // Was ai-highlights
+  { href: "/ai-video-generation", label: "Génération Vidéo IA", icon: AiVideoIcon }, // Was ai-shorts
+  { href: "/ai-album-art", label: "Pochettes d'Album IA", icon: AiAlbumArtIcon }, // Was stream-thumbnails
+  { href: "/ai-lyrics-assistant", label: "Assistant Paroles IA", icon: AiLyricsIcon }, // Was ai-translation
+  { href: "/revenues", label: "Revenus Musicaux", icon: CreditCard }, // Was payments
 ];
 
-const viewerNavItems = [
-  { href: "/live-streams", label: "Streams en Direct", icon: Tv2 },
+const fanNavItems = [
+  { href: "/explore-music", label: "Explorer la Musique", icon: LibraryMusic }, // Was live-streams
   { href: "/account/wallet", label: "Mon Portefeuille", icon: Wallet },
 ];
 
@@ -71,8 +66,13 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         </SidebarHeader>
         <SidebarContent>
           <SidebarMenu>
-            {/* Streamer Section */}
-            {streamerNavItems.map((item) => (
+            {/* Creator Section */}
+             <SidebarMenuItem className="px-2 group-data-[collapsible=icon]:hidden">
+                <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wider flex items-center gap-2">
+                    <Users className="h-4 w-4"/> Espace Créateur
+                </div>
+            </SidebarMenuItem>
+            {creatorNavItems.map((item) => (
               <SidebarMenuItem key={item.href}>
                 <Link href={item.href} legacyBehavior passHref>
                   <SidebarMenuButton
@@ -91,14 +91,14 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             
             <SidebarSeparator className="my-2" />
             
-            {/* Viewer Section Label - only shows if sidebar is expanded */}
+            {/* Fan Section Label - only shows if sidebar is expanded */}
              <SidebarMenuItem className="px-2 group-data-[collapsible=icon]:hidden">
                 <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wider flex items-center gap-2">
-                    <Users className="h-4 w-4"/> Espace Spectateur
+                    <Users className="h-4 w-4"/> Espace Fan
                 </div>
             </SidebarMenuItem>
 
-            {viewerNavItems.map((item) => (
+            {fanNavItems.map((item) => (
               <SidebarMenuItem key={item.href}>
                 <Link href={item.href} legacyBehavior passHref>
                   <SidebarMenuButton
@@ -133,4 +133,3 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     </>
   );
 }
-

@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
-import { CheckCircle, DollarSign, BarChart, Users, Settings, Share2, Sparkles, Languages, CreditCard, Scissors, PlaySquare, Tv, Smartphone } from "lucide-react";
+import { CheckCircle, DollarSign, BarChart, Users, Music2, Film, Sparkles, Share2, CreditCard, Wand2, SlidersHorizontal, Palette } from "lucide-react";
 import { Logo } from "@/components/logo";
 import React from "react";
 
@@ -16,17 +16,17 @@ const CreatorsLandingNavbar = () => {
         <Logo />
         <nav className="hidden md:flex gap-6 items-center">
           <Link href="#fonctionnalites" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
-            Fonctionnalités
+            Fonctionnalités IA
           </Link>
           <Link href="#tarifs" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
-            Tarifs
+            Notre Modèle
           </Link>
           <Link href="#pourquoi-nous" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
-            Pourquoi Nous?
+            Pourquoi Zikcut?
           </Link>
           <Button variant="outline" asChild>
             <Link href="/viewers">
-              Espace Spectateur
+              Espace Fan
             </Link>
           </Button>
           <Button asChild>
@@ -38,7 +38,7 @@ const CreatorsLandingNavbar = () => {
         <div className="md:hidden">
            <Button asChild variant="outline">
             <Link href="/dashboard">
-              Accès Streamer
+              Accès Créateur
             </Link>
           </Button>
         </div>
@@ -53,14 +53,9 @@ const CreatorsLandingFooter = () => {
       <div className="container text-center">
         <Logo />
         <p className="mt-4 text-sm text-muted-foreground">
-          &copy; {new Date().getFullYear()} EnDirectAuSénégal. Tous droits réservés. <br/>
-          La plateforme de streaming pensée pour les créateurs sénégalais.
+          &copy; {new Date().getFullYear()} Zikcut. Tous droits réservés. <br/>
+          La plateforme de création musicale IA pour les artistes et influenceurs.
         </p>
-        <div className="mt-4 flex justify-center gap-4">
-          <Link href="/explore" className="text-muted-foreground hover:text-primary"><PlaySquare className="h-5 w-5" /></Link>
-          <Link href="/viewers" className="text-muted-foreground hover:text-primary"><Smartphone className="h-5 w-5" /></Link>
-          <Link href="/live-streams" className="text-muted-foreground hover:text-primary"><Tv className="h-5 w-5" /></Link>
-        </div>
       </div>
     </footer>
   );
@@ -69,61 +64,61 @@ const CreatorsLandingFooter = () => {
 
 const features = [
   {
-    icon: Settings,
-    title: "Streaming HD Professionnel",
-    description: "Diffusez en haute définition avec des outils de personnalisation avancés : logos, superpositions, arrière-plans virtuels.",
-    dataAiHint: "streaming setup",
+    icon: Music2,
+    title: "Génération de Pistes Audio IA",
+    description: "Créez des morceaux originaux, des instrus ou des boucles. Choisissez le genre, l'ambiance, et laissez l'IA composer pour vous ou vous assister.",
+    dataAiHint: "AI music generation",
+  },
+  {
+    icon: Film,
+    title: "Création de Clips Vidéo IA",
+    description: "Transformez vos pistes audio en clips vidéo dynamiques. L'IA peut générer des visuels, synchroniser des scènes et créer des effets.",
+    dataAiHint: "AI video production",
+  },
+  {
+    icon: Palette,
+    title: "Conception de Pochettes IA",
+    description: "Obtenez des pochettes d'album uniques et professionnelles en quelques clics, basées sur le style de votre musique et vos descriptions.",
+    dataAiHint: "AI album art",
+  },
+  {
+    icon: Wand2,
+    title: "Assistant Paroles IA",
+    description: "Bloqué sur une rime ? L'IA vous aide à trouver l'inspiration, suggérer des thèmes, et peaufiner vos paroles.",
+    dataAiHint: "AI lyric writing",
   },
   {
     icon: Share2,
-    title: "Multistreaming Facile",
-    description: "Atteignez une audience maximale en diffusant simultanément sur YouTube, Facebook, Twitch et d'autres plateformes RTMP.",
-    dataAiHint: "multistreaming platforms",
-  },
-  {
-    icon: Sparkles,
-    title: "Moments Forts par IA",
-    description: "Ne perdez plus de temps à chercher les meilleurs moments. Notre IA génère automatiquement des extraits captivants de vos directs.",
-    dataAiHint: "AI editing",
-  },
-  {
-    icon: Scissors,
-    title: "Vidéos Courtes IA",
-    description: "Transformez vos longs directs en vidéos courtes (Shorts, Reels, TikToks) prêtes à publier, grâce à l'IA.",
-    dataAiHint: "social media video",
-  },
-  {
-    icon: Languages,
-    title: "Traduction en Direct par IA",
-    description: "Touchez un public mondial grâce à la traduction automatique et en temps réel de vos streams en plusieurs langues.",
-    dataAiHint: "live translation",
+    title: "Distribution & Promotion",
+    description: "Partagez facilement vos créations sur Zikcut et bénéficiez d'outils pour atteindre les fans et les influenceurs.",
+    dataAiHint: "music distribution",
   },
   {
     icon: CreditCard,
-    title: "Monétisation Adaptée au Sénégal",
-    description: "Intégrez facilement Sonatel Orange Money pour recevoir des paiements de vos spectateurs. Simple, rapide et local.",
-    dataAiHint: "mobile payment",
+    title: "Monétisation Flexible",
+    description: "Vendez vos pistes, proposez des abonnements exclusifs. Intégration Sonatel Orange Money (maquette) pour des paiements simplifiés.",
+    dataAiHint: "music monetization",
   },
 ];
 
 const whyUsPoints = [
   {
     icon: DollarSign,
-    title: "Conçu pour le Marché Sénégalais",
-    description: "Paiements via Orange Money, focus sur les créateurs et l'audience locale. Nous comprenons vos besoins.",
-    dataAiHint: "local payment market"
+    title: "Focus sur les Créateurs Africains",
+    description: "Une plateforme pensée pour les talents du continent et de la diaspora, avec des outils et une monétisation adaptés.",
+    dataAiHint: "african creator focus"
   },
   {
-    icon: BarChart,
-    title: "Technologie de Pointe et IA",
-    description: "Bénéficiez d'outils IA innovants, d'une qualité HD et d'une plateforme stable pour des streams professionnels.",
-    dataAiHint: "AI technology chart",
+    icon: Sparkles,
+    title: "Technologie IA de Pointe",
+    description: "Bénéficiez des dernières avancées en IA générative pour la musique, les vidéos et les visuels.",
+    dataAiHint: "AI technology music",
   },
   {
     icon: Users,
-    title: "Support Dédié et Communauté",
-    description: "Notre équipe est là pour vous accompagner. Rejoignez une communauté de créateurs sénégalais passionnés.",
-    dataAiHint: "community support team"
+    title: "Communauté et Réseau",
+    description: "Connectez-vous avec d'autres artistes, des influenceurs et des fans. Collaborez et grandissez ensemble.",
+    dataAiHint: "music community network"
   },
 ];
 
@@ -137,29 +132,29 @@ export default function CreatorsLandingPage() {
         <section className="py-20 md:py-32 bg-gradient-to-br from-primary/10 via-background to-background">
           <div className="container text-center">
             <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-foreground">
-              Passez au Niveau Supérieur Avec <span className="text-primary">EnDirectAuSénégal</span>
+              Révolutionnez Votre Musique avec <span className="text-primary">Zikcut</span>
             </h1>
             <p className="mt-6 text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
-              La plateforme tout-en-un pour les streamers au Sénégal. Créez, diffusez, monétisez et captivez votre audience comme jamais auparavant.
+              La plateforme tout-en-un pour les créateurs de musique. Utilisez l'IA pour composer, produire des clips, designer vos pochettes et connecter avec votre public.
             </p>
             <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" asChild className="bg-primary hover:bg-primary/90 text-primary-foreground">
                 <Link href="/dashboard">
-                  Commencez Maintenant
+                  Commencer à Créer
                 </Link>
               </Button>
               <Button size="lg" variant="outline" asChild>
                 <Link href="#fonctionnalites">
-                  Découvrir les Fonctionnalités
+                  Découvrir les Outils IA
                 </Link>
               </Button>
             </div>
              <div className="mt-16 relative aspect-video max-w-4xl mx-auto rounded-xl shadow-2xl overflow-hidden">
-                <Image src="https://picsum.photos/seed/landinghero/1280/720" alt="Tableau de bord EnDirectAuSénégal" layout="fill" objectFit="cover" data-ai-hint="dashboard platform"/>
+                <Image src="https://placehold.co/1280x720.png" alt="Tableau de bord Zikcut pour créateurs" layout="fill" objectFit="cover" data-ai-hint="dashboard music creation"/>
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
                 <div className="absolute bottom-8 left-8 text-left">
-                    <h3 className="text-2xl font-semibold text-white">Votre Hub de Streaming Centralisé</h3>
-                    <p className="text-white/80 mt-1">Gérez tout, du setup à la monétisation.</p>
+                    <h3 className="text-2xl font-semibold text-white">Votre Studio de Création Musicale Augmenté par l'IA</h3>
+                    <p className="text-white/80 mt-1">De l'idée à la distribution, Zikcut vous accompagne.</p>
                 </div>
              </div>
           </div>
@@ -169,9 +164,9 @@ export default function CreatorsLandingPage() {
         <section id="fonctionnalites" className="py-16 md:py-24 bg-background">
           <div className="container">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground">Des Outils Puissants pour les Créateurs</h2>
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground">Des Outils IA pour Libérer Votre Créativité Musicale</h2>
               <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
-                Tout ce dont vous avez besoin pour produire des streams professionnels et engageants.
+                Tout ce dont vous avez besoin pour produire des morceaux et des clips uniques et professionnels.
               </p>
             </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -187,7 +182,7 @@ export default function CreatorsLandingPage() {
                     <CardDescription>{feature.description}</CardDescription>
                   </CardContent>
                    <CardFooter>
-                     <Image src={`https://picsum.photos/seed/${feature.title.replace(/\s+/g, '')}/400/200`} alt={feature.title} width={400} height={200} className="rounded-md object-cover aspect-video w-full" data-ai-hint={feature.dataAiHint} />
+                     <Image src={`https://placehold.co/400x200.png`} alt={feature.title} width={400} height={200} className="rounded-md object-cover aspect-video w-full" data-ai-hint={feature.dataAiHint} />
                   </CardFooter>
                 </Card>
               ))}
@@ -200,27 +195,27 @@ export default function CreatorsLandingPage() {
           <div className="container">
             <div className="max-w-3xl mx-auto text-center">
               <DollarSign className="h-16 w-16 text-primary mx-auto mb-6 p-3 bg-primary/10 rounded-full" />
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground">Notre Modèle Équitable : <span className="text-primary">5% Seulement</span></h2>
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground">Notre Modèle Gagnant-Gagnant : <span className="text-primary">5% Seulement</span></h2>
               <p className="mt-6 text-lg text-muted-foreground">
-                Nous croyons en un partenariat transparent. EnDirectAuSénégal prélève une commission de seulement 5% sur les revenus que vous générez via la plateforme. Pas de frais cachés, pas de coûts initiaux élevés.
+                Zikcut prélève une commission de seulement 5% sur les revenus que vous générez via la plateforme (ventes de pistes, abonnements exclusifs). Pas de frais cachés, pas de coûts initiaux élevés.
               </p>
               <p className="mt-4 text-lg text-muted-foreground">
-                Plus vous gagnez, plus nous gagnons. Notre succès est lié au vôtre.
+                Notre succès est directement lié au vôtre.
               </p>
               <Card className="mt-8 text-left shadow-md p-6 bg-background">
                 <CardTitle className="text-xl mb-3">Ce que cela signifie pour vous :</CardTitle>
                 <ul className="space-y-2 text-muted-foreground">
                   <li className="flex items-start gap-2">
                     <CheckCircle className="h-5 w-5 text-primary mt-0.5 shrink-0" />
-                    <span><strong>Gardez 95% de vos revenus :</strong> La grande majorité de ce que vous gagnez vous revient directement.</span>
+                    <span><strong>Gardez 95% de vos revenus :</strong> La majeure partie de vos gains vous revient directement.</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle className="h-5 w-5 text-primary mt-0.5 shrink-0" />
-                    <span><strong>Accès complet à la plateforme :</strong> Profitez de toutes nos fonctionnalités, y compris les outils IA, pour cette commission unique.</span>
+                    <span><strong>Accès complet aux outils IA :</strong> Profitez de toutes nos fonctionnalités de création IA pour cette commission unique.</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle className="h-5 w-5 text-primary mt-0.5 shrink-0" />
-                    <span><strong>Alignement d'intérêts :</strong> Nous sommes motivés à vous aider à réussir et à augmenter votre audience et vos revenus.</span>
+                    <span><strong>Alignement d'intérêts :</strong> Nous sommes motivés à vous aider à créer, à vous faire connaître et à augmenter vos revenus.</span>
                   </li>
                 </ul>
               </Card>
@@ -232,9 +227,9 @@ export default function CreatorsLandingPage() {
         <section id="pourquoi-nous" className="py-16 md:py-24 bg-background">
           <div className="container">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground">Pourquoi Choisir EnDirectAuSénégal ?</h2>
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground">Pourquoi Choisir Zikcut ?</h2>
               <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
-                Nous sommes plus qu'une simple plateforme. Nous sommes votre partenaire pour le streaming au Sénégal.
+                Nous sommes plus qu'une simple plateforme. Nous sommes votre partenaire pour la création musicale à l'ère de l'IA.
               </p>
             </div>
             <div className="grid md:grid-cols-1 lg:grid-cols-3 gap-8">
@@ -254,15 +249,15 @@ export default function CreatorsLandingPage() {
         {/* Final CTA Section */}
         <section className="py-20 md:py-28 bg-primary text-primary-foreground">
           <div className="container text-center">
-            <h2 className="text-3xl md:text-4xl font-bold">Prêt à Révolutionner Vos Streams ?</h2>
+            <h2 className="text-3xl md:text-4xl font-bold">Prêt à Composer l'Avenir de Votre Musique ?</h2>
             <p className="mt-4 text-lg opacity-90 max-w-xl mx-auto">
-              Rejoignez la communauté des streamers sénégalais qui font confiance à EnDirectAuSénégal.
-              Inscrivez-vous gratuitement et commencez à diffuser dès aujourd'hui.
+              Rejoignez la communauté des créateurs qui utilisent Zikcut pour innover.
+              Inscrivez-vous gratuitement et commencez à créer dès aujourd'hui.
             </p>
             <div className="mt-10">
               <Button size="lg" variant="secondary" asChild className="text-secondary-foreground hover:bg-secondary/90">
                 <Link href="/dashboard">
-                  Créer Mon Compte Streamer
+                  Créer Mon Compte Artiste
                 </Link>
               </Button>
             </div>

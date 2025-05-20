@@ -8,34 +8,36 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
-import { Settings, UploadCloud, Image as ImageIcon, Video as VideoIcon } from "lucide-react";
+import { SlidersHorizontal, UploadCloud, Palette as ImageIcon, Music2 as VideoIcon } from "lucide-react"; // Renamed icons
 import Image from "next/image";
 import React, { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
+import { Textarea } from "@/components/ui/textarea";
 
 interface FilePreview {
   name: string;
   url: string;
-  type: "image" | "video";
+  type: "image" | "audio"; // Changed video to audio
 }
 
-export default function StreamingSettingsPage() {
-  const [resolution, setResolution] = useState("1080p");
-  const [recordingQuality, setRecordingQuality] = useState("4k");
-  const [logo, setLogo] = useState<FilePreview | null>(null);
-  const [overlay, setOverlay] = useState<FilePreview | null>(null);
-  const [background, setBackground] = useState<FilePreview | null>(null);
+export default function ProjectSettingsPage() { // Renamed component
+  const [projectName, setProjectName] = useState("");
+  const [projectDescription, setProjectDescription] = useState("");
+  const [audioQuality, setAudioQuality] = useState("lossless"); // Example audio setting
+  const [coverArt, setCoverArt] = useState<FilePreview | null>(null);
+  const [mainAudioFile, setMainAudioFile] = useState<FilePreview | null>(null); // For main track
+  const [instrumentalFile, setInstrumentalFile] = useState<FilePreview | null>(null); // Optional instrumental
   const { toast } = useToast();
 
   const handleFileChange = (
     event: React.ChangeEvent<HTMLInputElement>,
     setter: React.Dispatch<React.SetStateAction<FilePreview | null>>,
-    fileType: "image" | "video"
+    fileType: "image" | "audio"
   ) => {
     const file = event.target.files?.[0];
     if (file) {
       if ((fileType === "image" && !file.type.startsWith("image/")) || 
-          (fileType === "video" && !file.type.startsWith("video/"))) {
+          (fileType === "audio" && !file.type.startsWith("audio/"))) {
         toast({
           title: "Type de Fichier Invalide",
           description: `Veuillez sélectionner un fichier ${fileType} valide.`,
@@ -49,12 +51,11 @@ export default function StreamingSettingsPage() {
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    // Handle form submission logic, e.g., save settings to backend
     toast({
-      title: "Paramètres Enregistrés",
-      description: "Vos paramètres de streaming ont été mis à jour avec succès.",
+      title: "Paramètres du Projet Enregistrés",
+      description: `Les paramètres pour "${projectName || 'Nouveau Projet'}" ont été mis à jour.`,
     });
-    console.log({ resolution, recordingQuality, logo, overlay, background });
+    console.log({ projectName, projectDescription, audioQuality, coverArt, mainAudioFile, instrumentalFile });
   };
 
   const FileUploadCard = ({
@@ -65,18 +66,20 @@ export default function StreamingSettingsPage() {
     accept,
     fileType,
     dataAiHint,
+    icon: IconComponent,
   }: {
     title: string;
     description: string;
     currentFile: FilePreview | null;
     onFileChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
     accept: string;
-    fileType: "image" | "video";
+    fileType: "image" | "audio";
     dataAiHint: string;
+    icon: React.ElementType;
   }) => (
     <Card className="shadow-md">
       <CardHeader>
-        <CardTitle className="text-lg">{title}</CardTitle>
+        <CardTitle className="text-lg flex items-center gap-2"><IconComponent className="h-5 w-5 text-primary"/> {title}</CardTitle>
         <CardDescription>{description}</CardDescription>
       </CardHeader>
       <CardContent>
@@ -90,14 +93,14 @@ export default function StreamingSettingsPage() {
             <div className="mt-2 p-2 border rounded-md">
               <p className="text-sm font-medium truncate">{currentFile.name}</p>
               {currentFile.type === "image" && (
-                <Image src={currentFile.url} alt={title} width={100} height={50} className="mt-1 rounded-md object-contain" data-ai-hint={dataAiHint} />
+                <Image src={currentFile.url} alt={title} width={100} height={100} className="mt-1 rounded-md object-contain aspect-square" data-ai-hint={dataAiHint} />
               )}
-              {currentFile.type === "video" && (
-                <video src={currentFile.url} controls width="100" className="mt-1 rounded-md" data-ai-hint={dataAiHint}></video>
+              {currentFile.type === "audio" && (
+                <audio src={currentFile.url} controls className="mt-1 rounded-md w-full" data-ai-hint={dataAiHint}></audio>
               )}
             </div>
           ) : (
-             <Image src={`https://picsum.photos/seed/${title.replace(/\s+/g, '')}/200/100`} alt="Placeholder" width={100} height={50} className="mt-1 rounded-md object-contain opacity-50" data-ai-hint={dataAiHint} />
+             <Image src={`https://placehold.co/100x100.png`} alt="Placeholder" width={100} height={100} className="mt-1 rounded-md object-contain opacity-50 aspect-square" data-ai-hint={dataAiHint} />
           )}
         </div>
       </CardContent>
@@ -107,42 +110,37 @@ export default function StreamingSettingsPage() {
   return (
     <div className="container mx-auto">
       <PageHeader
-        title="Configuration du Streaming"
-        description="Personnalisez la qualité et l'apparence de votre stream."
-        icon={Settings}
+        title="Paramètres du Projet Musical"
+        description="Configurez les détails de votre projet musical, téléversez vos fichiers et préparez votre sortie."
+        icon={SlidersHorizontal} // Changed from Settings
       />
       <form onSubmit={handleSubmit} className="space-y-8">
         <Card className="shadow-lg">
           <CardHeader>
-            <CardTitle>Qualité du Stream</CardTitle>
-            <CardDescription>Définissez la qualité de votre streaming en direct et de vos enregistrements.</CardDescription>
+            <CardTitle>Informations Générales du Projet</CardTitle>
+            <CardDescription>Définissez le nom, la description et la qualité audio de votre projet musical.</CardDescription>
           </CardHeader>
           <CardContent className="grid gap-6 md:grid-cols-2">
             <div className="space-y-2">
-              <Label htmlFor="resolution">Résolution de Streaming (Max)</Label>
-              <Select value={resolution} onValueChange={setResolution}>
-                <SelectTrigger id="resolution">
-                  <SelectValue placeholder="Sélectionnez la résolution" />
+              <Label htmlFor="projectName">Nom du Projet/Titre</Label>
+              <Input id="projectName" value={projectName} onChange={(e) => setProjectName(e.target.value)} placeholder="Ex: Mon Nouveau Single, Album Révélation" />
+            </div>
+             <div className="space-y-2">
+              <Label htmlFor="audio-quality">Qualité Audio (Encodage)</Label>
+              <Select value={audioQuality} onValueChange={setAudioQuality}>
+                <SelectTrigger id="audio-quality">
+                  <SelectValue placeholder="Sélectionnez la qualité audio" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="1080p">Full HD (1080p)</SelectItem>
-                  <SelectItem value="720p">HD (720p)</SelectItem>
-                  <SelectItem value="480p">SD (480p)</SelectItem>
+                  <SelectItem value="lossless">Lossless (WAV, FLAC)</SelectItem>
+                  <SelectItem value="high">Haute Qualité (MP3 320kbps)</SelectItem>
+                  <SelectItem value="standard">Standard (MP3 192kbps)</SelectItem>
                 </SelectContent>
               </Select>
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="recording-quality">Qualité d'Enregistrement Local</Label>
-              <Select value={recordingQuality} onValueChange={setRecordingQuality}>
-                <SelectTrigger id="recording-quality">
-                  <SelectValue placeholder="Sélectionnez la qualité" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="4k">4K</SelectItem>
-                  <SelectItem value="1080p">Full HD (1080p)</SelectItem>
-                  <SelectItem value="720p">HD (720p)</SelectItem>
-                </SelectContent>
-              </Select>
+            <div className="space-y-2 md:col-span-2">
+                <Label htmlFor="projectDescription">Description du Projet</Label>
+                <Textarea id="projectDescription" value={projectDescription} onChange={(e) => setProjectDescription(e.target.value)} placeholder="Décrivez votre projet, son style, son inspiration..." rows={4} />
             </div>
           </CardContent>
         </Card>
@@ -150,41 +148,44 @@ export default function StreamingSettingsPage() {
         <Separator />
 
         <div>
-          <h2 className="text-2xl font-semibold mb-1">Personnalisation</h2>
-          <p className="text-muted-foreground mb-6">Ajoutez les éléments de votre marque au stream.</p>
+          <h2 className="text-2xl font-semibold mb-1">Fichiers du Projet</h2>
+          <p className="text-muted-foreground mb-6">Téléversez la pochette, la piste principale et d'autres éléments de votre projet.</p>
           <div className="grid gap-6 md:grid-cols-1 lg:grid-cols-3">
             <FileUploadCard
-              title="Logo"
-              description="Téléversez le logo de votre marque (PNG, JPG, max 2Mo)."
-              currentFile={logo}
-              onFileChange={(e) => handleFileChange(e, setLogo, "image")}
+              title="Pochette d'Album/Single"
+              description="Téléversez l'image de couverture (PNG, JPG, min 1000x1000px)."
+              currentFile={coverArt}
+              onFileChange={(e) => handleFileChange(e, setCoverArt, "image")}
               accept="image/png, image/jpeg"
               fileType="image"
-              dataAiHint="brand logo"
+              dataAiHint="album cover"
+              icon={ImageIcon}
             />
             <FileUploadCard
-              title="Superposition"
-              description="Téléversez une superposition personnalisée (PNG, max 5Mo)."
-              currentFile={overlay}
-              onFileChange={(e) => handleFileChange(e, setOverlay, "image")}
-              accept="image/png"
-              fileType="image"
-              dataAiHint="stream overlay"
+              title="Piste Audio Principale"
+              description="Téléversez votre morceau final (WAV, MP3, FLAC)."
+              currentFile={mainAudioFile}
+              onFileChange={(e) => handleFileChange(e, setMainAudioFile, "audio")}
+              accept="audio/wav, audio/mpeg, audio/flac"
+              fileType="audio"
+              dataAiHint="main audio track"
+              icon={VideoIcon} // Re-using VideoIcon as Music2 for consistency with other parts
             />
             <FileUploadCard
-              title="Image/Vidéo d'Arrière-plan"
-              description="Définissez un arrière-plan pour les écrans d'attente ou les intros (JPG, PNG, MP4, max 10Mo)."
-              currentFile={background}
-              onFileChange={(e) => handleFileChange(e, setBackground, "video")} 
-              accept="image/png, image/jpeg, video/mp4"
-              fileType="video" 
-              dataAiHint="stream background"
+              title="Piste Instrumentale (Optionnel)"
+              description="Téléversez la version instrumentale de votre morceau."
+              currentFile={instrumentalFile}
+              onFileChange={(e) => handleFileChange(e, setInstrumentalFile, "audio")} 
+              accept="audio/wav, audio/mpeg, audio/flac"
+              fileType="audio" 
+              dataAiHint="instrumental track"
+              icon={VideoIcon} // Re-using VideoIcon as Music2
             />
           </div>
         </div>
         
         <div className="flex justify-end pt-4">
-          <Button type="submit" size="lg">Enregistrer les Paramètres</Button>
+          <Button type="submit" size="lg">Enregistrer les Paramètres du Projet</Button>
         </div>
       </form>
     </div>

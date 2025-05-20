@@ -1,16 +1,17 @@
-# EnDirectAuSénégal - Plateforme de Streaming en Direct
+# Zikcut - Plateforme de Création et Consommation Musicale IA
 
-Bienvenue sur EnDirectAuSénégal, une plateforme de streaming en direct riche en fonctionnalités, conçue pour les créateurs de contenu au Sénégal et au-delà. Propulsée par Next.js, TypeScript et des technologies d'IA de pointe, cette application offre une suite complète d'outils pour gérer, monétiser et améliorer vos diffusions en direct.
+Bienvenue sur Zikcut, une plateforme musicale innovante, conçue pour les créateurs de musique, les influenceurs et les fans. Propulsée par Next.js, TypeScript et des technologies d'IA de pointe, Zikcut offre une suite complète d'outils pour créer, partager, monétiser et découvrir la musique de demain.
 
 ## ✨ Fonctionnalités
 
-*   **📺 Configuration de Streaming HD :** Personnalisez vos streams avec des logos, des superpositions et des arrière-plans. Ajustez la résolution et la qualité d'enregistrement.
-*   **📡 Multistreaming :** Diffusez simultanément sur plusieurs plateformes RTMP (ex: YouTube, Facebook, Twitch) pour atteindre un public plus large. Configurez jusqu'à 8 destinations.
-*   **🤖 Moments Forts IA :** Générez automatiquement des extraits vidéo captivants de vos diffusions en direct grâce à l'intelligence artificielle.
-*   **🌍 Traduction IA en Direct :** Traduisez le contenu parlé de votre stream en temps réel dans plusieurs langues pour une audience globale.
-*   **💳 Paiements & Monétisation (Intégration Sonatel Orange Money) :** Gérez vos revenus et intégrez Sonatel Orange Money pour des paiements fluides (Maquette pour la démo).
-*   **💻 Webinaire "En Direct" :** Organisez des webinaires jusqu'à 1000 spectateurs directement sur la plateforme, avec un temps de streaming illimité.
-*   **🎨 Interface Utilisateur Moderne :** Construit avec ShadCN UI et Tailwind CSS pour une expérience utilisateur élégante et réactive.
+*   **🎵 Création de Pistes Audio IA :** Générez des morceaux de musique originaux dans divers genres et styles grâce à l'intelligence artificielle.
+*   **🎬 Génération de Clips Vidéo IA :** Créez des clips vidéo captivants pour accompagner vos pistes musicales, en utilisant des outils IA.
+*   **🎨 Conception de Pochettes d'Album IA :** Générez des pochettes d'album uniques et artistiques pour vos singles et albums.
+*   **✍️ Assistant Paroles IA :** Obtenez de l'aide pour écrire des paroles inspirantes et créatives pour vos chansons.
+*   **🚀 Outils de Distribution & Partage :** Partagez facilement votre musique sur la plateforme et potentiellement au-delà.
+*   **🤝 Communauté & Connexion :** Mettez en relation les créateurs, les influenceurs et les fans de musique.
+*   **💳 Monétisation (Maquette Sonatel Orange Money) :** Gérez vos revenus et intégrez Sonatel Orange Money pour des paiements fluides pour du contenu exclusif (Maquette pour la démo).
+*   **💻 Interface Utilisateur Moderne :** Construit avec ShadCN UI et Tailwind CSS pour une expérience utilisateur élégante et réactive.
 
 ## 🛠️ Stack Technique
 
@@ -34,8 +35,8 @@ Suivez ces instructions pour mettre en place et faire fonctionner le projet sur 
 
 1.  **Clonez le dépôt :**
     ```bash
-    git clone https://github.com/votre-utilisateur/endirectausenegal.git
-    cd endirectausenegal
+    git clone https://github.com/votre-utilisateur/zikcut.git
+    cd zikcut
     ```
 
 2.  **Installez les dépendances :**
@@ -68,29 +69,29 @@ Suivez ces instructions pour mettre en place et faire fonctionner le projet sur 
     ```bash
     npm run genkit:dev
     ```
-    Ceci est nécessaire pour que les flux Genkit (traduction, moments forts) fonctionnent. Le serveur Genkit fonctionne généralement sur `http://localhost:4000`.
+    Ceci est nécessaire pour que les flux Genkit fonctionnent. Le serveur Genkit fonctionne généralement sur `http://localhost:4000`.
 
 ## 📂 Structure du Projet
 
 ```
-endirectausenegal/
+zikcut/
 ├── src/
 │   ├── ai/                  # Logique liée à l'IA avec Genkit
-│   │   ├── flows/           # Définitions des flux Genkit (ex: traduction, moments forts)
+│   │   ├── flows/           # Définitions des flux Genkit (ex: génération audio, vidéo)
 │   │   ├── genkit.ts        # Configuration globale de Genkit
 │   │   └── dev.ts           # Point d'entrée pour le serveur de développement Genkit
 │   ├── app/                 # Routes de l'application Next.js (App Router)
 │   │   ├── (pages)/         # Groupes de routes pour les pages principales
-│   │   │   ├── page.tsx     # Tableau de bord (page d'accueil)
-│   │   │   └── ...          # Autres pages (multistreaming, paiements, etc.)
+│   │   │   ├── page.tsx     # Tableau de bord (page d'accueil de l'app)
+│   │   │   └── ...          # Autres pages (génération IA, revenus, etc.)
 │   │   ├── layout.tsx       # Layout principal de l'application
 │   │   └── globals.css      # Styles globaux et variables de thème ShadCN
 │   ├── components/          # Composants React réutilisables
 │   │   ├── ui/              # Composants ShadCN UI
 │   │   ├── page-header.tsx  # Composant d'en-tête de page
 │   │   └── ...              # Autres composants personnalisés
-│   ├── hooks/               # Hooks React personnalisés (ex: useToast, useIsMobile)
-│   ├── lib/                 # Fonctions utilitaires (ex: cn pour classnames)
+│   ├── hooks/               # Hooks React personnalisés
+│   ├── lib/                 # Fonctions utilitaires et données mock
 ├── public/                  # Fichiers statiques
 ├── components.json          # Configuration ShadCN UI
 ├── next.config.ts           # Configuration Next.js
@@ -113,39 +114,29 @@ Dans le fichier `package.json`, vous trouverez plusieurs scripts utiles :
 
 ## 🤖 Fonctionnalités IA avec Genkit
 
-Ce projet utilise **Genkit** pour intégrer des fonctionnalités d'intelligence artificielle générative. Genkit facilite l'appel à des modèles de langage (LLM) et des modèles de génération d'images.
-
-*   **Flux Définis :** Les fonctionnalités IA comme la création de moments forts et la traduction en direct sont implémentées en tant que flux Genkit dans `src/ai/flows/`.
-*   **Configuration :** L'instance Genkit est configurée dans `src/ai/genkit.ts`, utilisant le plugin `googleAI` pour interagir avec les modèles Gemini de Google.
+Ce projet utilise **Genkit** pour intégrer des fonctionnalités d'intelligence artificielle générative pour la musique.
+*   **Flux Définis :** Les fonctionnalités IA comme la génération de pistes audio, de clips vidéo, de pochettes d'album et l'assistance à l'écriture de paroles sont implémentées en tant que flux Genkit dans `src/ai/flows/`.
+*   **Configuration :** L'instance Genkit est configurée dans `src/ai/genkit.ts`.
 *   **Développement :** Un serveur de développement Genkit séparé (`npm run genkit:dev`) est nécessaire pour tester et exécuter ces flux localement.
 
 ## 🌐 Déploiement
 
-Pour déployer cette application Next.js, vous pouvez utiliser des plateformes comme :
-
-*   **Vercel :** Le créateur de Next.js, offrant une intégration transparente.
-*   **Netlify :** Une autre option populaire pour les applications Jamstack.
-*   **Serveur Node.js personnalisé :** Vous pouvez héberger l'application sur votre propre serveur.
-
-N'oubliez pas de configurer les variables d'environnement requises sur votre plateforme d'hébergement. Les flux Genkit pourraient nécessiter une configuration spécifique pour le déploiement en production (ex: Firebase Cloud Functions si vous utilisez l'intégration Firebase de Genkit).
+Pour déployer cette application Next.js, vous pouvez utiliser des plateformes comme Vercel, Netlify, ou un serveur Node.js personnalisé. N'oubliez pas de configurer les variables d'environnement requises.
 
 ## 🤝 Contribution
 
-Les contributions sont les bienvenues ! Si vous souhaitez améliorer cette application :
-
+Les contributions sont les bienvenues !
 1.  Forkez le dépôt.
-2.  Créez une nouvelle branche (`git checkout -b feature/nom-de-la-fonctionnalite`).
+2.  Créez une nouvelle branche.
 3.  Faites vos modifications.
-4.  Commitez vos changements (`git commit -m 'Ajout de fonctionnalité X'`).
-5.  Poussez vers la branche (`git push origin feature/nom-de-la-fonctionnalite`).
+4.  Commitez vos changements.
+5.  Poussez vers la branche.
 6.  Ouvrez une Pull Request.
-
-Veuillez vous assurer que votre code respecte les conventions de style et passe les vérifications de linting et de typage.
 
 ## 📄 Licence
 
-Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails (si un fichier LICENSE est ajouté).
+Ce projet est sous licence MIT (à ajouter si nécessaire).
 
 ---
 
-Merci d'utiliser EnDirectAuSénégal ! Nous espérons que cette plateforme vous aidera à créer et partager des contenus exceptionnels.
+Merci d'utiliser Zikcut ! Nous espérons que cette plateforme vous aidera à créer, partager et découvrir des musiques exceptionnelles.

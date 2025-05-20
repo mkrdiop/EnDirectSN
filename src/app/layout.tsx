@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'EnDirectAuSénégal',
-  description: 'Plateforme de streaming en direct pour le Sénégal',
+  title: 'Zikcut',
+  description: 'Plateforme de création et consommation musicale assistée par IA.',
 };
 
 export default function RootLayout({

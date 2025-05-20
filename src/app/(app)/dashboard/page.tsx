@@ -2,58 +2,58 @@
 import { PageHeader } from "@/components/page-header";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowRight, LayoutDashboard, Settings, Share2, Sparkles, Languages, CreditCard, Scissors, ImageIcon } from "lucide-react";
+import { ArrowRight, LayoutDashboard, SlidersHorizontal, Share2, Music2, Film, Palette, FileText, CreditCard } from "lucide-react";
 import Link from "next/link";
 
 const features = [
   {
-    title: "Configuration du Streaming",
-    description: "Configurez le streaming HD et personnalisez votre diffusion avec des logos et des superpositions.",
-    icon: Settings,
-    href: "/streaming-settings",
-    cta: "Configurer le Stream",
+    title: "Paramètres Projet Musical",
+    description: "Configurez les détails de vos projets musicaux, métadonnées et préférences de génération.",
+    icon: SlidersHorizontal, // Changed from Settings
+    href: "/project-settings", // Was /streaming-settings
+    cta: "Configurer le Projet",
   },
   {
-    title: "Multistreaming",
-    description: "Atteignez un public plus large en diffusant sur plusieurs plateformes simultanément.",
+    title: "Distribution & Partage",
+    description: "Gérez la diffusion de votre musique, partagez sur les réseaux et accédez à des outils promotionnels.",
     icon: Share2,
-    href: "/multistreaming",
-    cta: "Configurer les Destinations",
+    href: "/distribution-tools", // Was /multistreaming
+    cta: "Gérer la Distribution",
   },
   {
-    title: "Moments Forts IA",
-    description: "Générez automatiquement des extraits captivants de vos diffusions en direct.",
-    icon: Sparkles,
-    href: "/ai-highlights",
-    cta: "Créer des Moments Forts",
+    title: "Génération Audio IA",
+    description: "Créez des pistes audio, des instrus ou des samples uniques avec l'aide de l'intelligence artificielle.",
+    icon: Music2, // Changed from Sparkles
+    href: "/ai-audio-generation", // Was /ai-highlights
+    cta: "Générer de l'Audio",
   },
   {
-    title: "Générateur de Vidéos Courtes IA",
-    description: "Créez des vidéos courtes (Shorts, Reels) à partir de vos streams pour les réseaux sociaux.",
-    icon: Scissors,
-    href: "/ai-shorts",
-    cta: "Créer des Vidéos Courtes",
+    title: "Génération Vidéo IA",
+    description: "Produisez des clips vidéo, des visualizers ou des vidéos promotionnelles pour votre musique.",
+    icon: Film, // Changed from Scissors
+    href: "/ai-video-generation", // Was /ai-shorts
+    cta: "Créer des Vidéos",
   },
   {
-    title: "Générateur de Miniatures IA",
-    description: "Générez des miniatures attrayantes pour vos vidéos de stream avec l'IA.",
-    icon: ImageIcon,
-    href: "/stream-thumbnails",
-    cta: "Créer des Miniatures",
+    title: "Pochettes d'Album IA",
+    description: "Générez des pochettes d'album et des visuels artistiques uniques pour vos sorties musicales.",
+    icon: Palette, // Changed from ImageIcon
+    href: "/ai-album-art", // Was /stream-thumbnails
+    cta: "Créer des Pochettes",
   },
   {
-    title: "Traduction IA",
-    description: "Fournissez des traductions en direct de votre stream dans plusieurs langues.",
-    icon: Languages,
-    href: "/ai-translation",
-    cta: "Traduire le Contenu",
+    title: "Assistant Paroles IA",
+    description: "Obtenez de l'aide pour écrire, améliorer ou traduire des paroles pour vos chansons.",
+    icon: FileText, // Changed from Languages
+    href: "/ai-lyrics-assistant", // Was /ai-translation
+    cta: "Écrire des Paroles",
   },
   {
-    title: "Paiements",
-    description: "Gérez vos revenus et intégrez Sonatel pour le traitement des paiements.",
+    title: "Revenus Musicaux",
+    description: "Suivez vos revenus, gérez vos options de monétisation et configurez vos paiements (maquette).",
     icon: CreditCard,
-    href: "/payments",
-    cta: "Voir les Paiements",
+    href: "/revenues", // Was /payments
+    cta: "Voir les Revenus",
   },
 ];
 
@@ -61,8 +61,8 @@ export default function DashboardPage() {
   return (
     <div className="container mx-auto">
       <PageHeader
-        title="Tableau de Bord"
-        description="Bienvenue sur EnDirectAuSénégal ! Gérez vos streams et accédez à des fonctionnalités puissantes."
+        title="Tableau de Bord Zikcut"
+        description="Bienvenue sur Zikcut ! Gérez vos créations musicales, utilisez nos outils IA et connectez avec votre audience."
         icon={LayoutDashboard}
       />
 
@@ -93,13 +93,15 @@ export default function DashboardPage() {
       <Card className="mt-8 bg-gradient-to-r from-primary/10 via-secondary/10 to-accent/10 p-6 shadow-lg">
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           <div>
-            <h2 className="text-2xl font-semibold text-foreground">Prêt à passer en direct ?</h2>
+            <h2 className="text-2xl font-semibold text-foreground">Prêt à créer votre prochain hit ?</h2>
             <p className="text-muted-foreground mt-1">
-              Lancez votre diffusion en direct professionnelle dès aujourd'hui avec EnDirectAuSénégal.
+              Utilisez les outils IA de Zikcut pour donner vie à vos idées musicales.
             </p>
           </div>
-          <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground group">
-            Lancer un Nouveau Stream <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+          <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground group" asChild>
+            <Link href="/ai-audio-generation"> {/* Direct link to a creation tool */}
+              Lancer un Nouveau Projet Audio <Music2 className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+            </Link>
           </Button>
         </div>
       </Card>

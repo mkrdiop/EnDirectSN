@@ -4,7 +4,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/logo";
-import { Compass, LayoutDashboard, LogIn, Mic } from "lucide-react"; // Added Mic icon
+import { Compass, LayoutDashboard, User, Mic2, LibraryMusic } from "lucide-react"; 
 
 export function ExploreNavbar() {
   return (
@@ -13,13 +13,13 @@ export function ExploreNavbar() {
         <Logo />
         <nav className="hidden md:flex gap-4 items-center">
           <Button variant="ghost" asChild>
-            <Link href="/live-streams">
-              <Compass className="mr-2 h-4 w-4" /> Tous les Streams
+            <Link href="/explore-music"> {/* Path for main music library page */}
+              <LibraryMusic className="mr-2 h-4 w-4" /> Explorer la Musique
             </Link>
           </Button>
           <Button variant="ghost" asChild>
              <Link href="/creators">
-              <Mic className="mr-2 h-4 w-4" /> Pour les Créateurs
+              <Mic2 className="mr-2 h-4 w-4" /> Pour les Créateurs
             </Link>
           </Button>
            <Button variant="outline" asChild>
@@ -30,14 +30,14 @@ export function ExploreNavbar() {
           {/* Placeholder for Login/Signup or User Profile */}
           {/* <Button asChild>
             <Link href="/auth/login">
-              <LogIn className="mr-2 h-4 w-4" /> Se Connecter
+              <User className="mr-2 h-4 w-4" /> Se Connecter
             </Link>
           </Button> */}
         </nav>
         <div className="md:hidden">
           <Button asChild variant="outline" size="sm">
-            <Link href="/live-streams">
-              Streams
+            <Link href="/explore-music">
+              Musique
             </Link>
           </Button>
         </div>
