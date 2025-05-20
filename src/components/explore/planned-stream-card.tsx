@@ -25,7 +25,7 @@ export function PlannedStreamCard({ stream: release }: UpcomingReleaseCardProps)
         ) : (
             <Image
             src={release.artworkUrl}
-            alt={release.title}
+            alt={release.title || "Upcoming Release Artwork"}
             width={400}
             height={225} // 16:9 aspect ratio
             className="object-cover w-full aspect-video opacity-80 group-hover:opacity-100 transition-opacity"
@@ -42,23 +42,23 @@ export function PlannedStreamCard({ stream: release }: UpcomingReleaseCardProps)
                 <Skeleton className="h-10 w-10 rounded-full" />
            ) : (
             <Avatar className="h-10 w-10 border">
-                <AvatarImage src={release.artistAvatarUrl} alt={release.artistName} data-ai-hint={release.artistAvatarAiHint}/>
-                <AvatarFallback>{release.artistName.substring(0, 2).toUpperCase()}</AvatarFallback>
+                <AvatarImage src={release.artistAvatarUrl} alt={release.artistName || "Artist Avatar"} data-ai-hint={release.artistAvatarAiHint}/>
+                <AvatarFallback>{release.artistName && release.artistName.length >= 2 ? release.artistName.substring(0, 2).toUpperCase() : "AR"}</AvatarFallback>
             </Avatar>
            )}
           <div>
             <CardTitle className="text-lg leading-tight mb-0.5 flex items-center gap-1.5">
                 <IconType className="h-5 w-5 text-primary shrink-0" />
-                {release.title}
+                {release.title || "Titre Indisponible"}
             </CardTitle>
-            <p className="text-sm text-muted-foreground">{release.artistName}</p>
+            <p className="text-sm text-muted-foreground">{release.artistName || "Artiste Inconnu"}</p>
           </div>
         </div>
-        <Badge variant="outline" className="mb-3">{release.genre}</Badge>
-        <CardDescription className="text-sm line-clamp-2 mb-3">{release.description}</CardDescription>
+        {release.genre && <Badge variant="outline" className="mb-3">{release.genre}</Badge>}
+        <CardDescription className="text-sm line-clamp-2 mb-3">{release.description || "Aucune description disponible."}</CardDescription>
         <div className="flex items-center text-sm text-primary font-medium">
           <CalendarClock className="mr-2 h-4 w-4" />
-          <span>Sortie: {release.releaseDate}</span>
+          <span>Sortie: {release.releaseDate || "Date Inconnue"}</span>
         </div>
       </CardContent>
       <CardFooter className="p-4 border-t border-dashed border-primary/30">
