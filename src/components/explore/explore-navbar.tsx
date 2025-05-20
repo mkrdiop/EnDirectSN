@@ -4,7 +4,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/logo";
-import { Compass, LayoutDashboard, User, Mic2, LibraryMusic } from "lucide-react"; 
+import { Compass, LayoutDashboard, User, Mic2, Library } from "lucide-react"; 
 
 export function ExploreNavbar() {
   return (
@@ -14,7 +14,7 @@ export function ExploreNavbar() {
         <nav className="hidden md:flex gap-4 items-center">
           <Button variant="ghost" asChild>
             <Link href="/explore-music"> {/* Path for main music library page */}
-              <LibraryMusic className="mr-2 h-4 w-4" /> Explorer la Musique
+              <Library className="mr-2 h-4 w-4" /> Explorer la Musique
             </Link>
           </Button>
           <Button variant="ghost" asChild>
@@ -45,3 +45,6 @@ export function ExploreNavbar() {
     </header>
   );
 }
+
+
+    

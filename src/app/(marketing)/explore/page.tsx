@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Input } from "@/components/ui/input";
-import { Search, Compass, Sparkles, Users as UsersIcon, CalendarDays, ArrowRight, Music2, LibraryMusic, Mic2 } from "lucide-react";
+import { Search, Compass, Sparkles, Users as UsersIcon, CalendarDays, ArrowRight, Music2, Library, Mic2 } from "lucide-react";
 import { ExploreNavbar } from "@/components/explore/explore-navbar";
 import { ExploreFooter } from "@/components/explore/explore-footer";
 import { StreamCard } from "@/components/viewer/stream-card"; // Will be adapted to MusicTrackCard later
@@ -126,7 +126,7 @@ export default function ExplorePage() {
             <div className="mt-10">
               <Button size="lg" asChild className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-8 py-3 text-base">
                 <Link href="/explore-music"> {/* This path should lead to the main music library / viewer page */}
-                  <LibraryMusic className="mr-2 h-5 w-5" /> Parcourir Toute la Musique
+                  <Library className="mr-2 h-5 w-5" /> Parcourir Toute la Musique
                 </Link>
               </Button>
             </div>
@@ -239,3 +239,6 @@ export default function ExplorePage() {
     </div>
   );
 }
+
+
+    

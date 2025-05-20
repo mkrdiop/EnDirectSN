@@ -6,7 +6,7 @@ import { PageHeader } from "@/components/page-header";
 import { StreamCard } from "@/components/viewer/stream-card"; 
 // TODO: Replace mockStreams, streamCategories, getStreamsByCategory with music-specific data and functions
 import { mockStreams, streamCategories, getStreamsByCategory, type Stream } from "@/lib/mock-streams";
-import { LibraryMusic, Wallet, Music2 } from "lucide-react"; // Renamed Tv2 to LibraryMusic
+import { Library, Wallet, Music2 } from "lucide-react"; // Changed LibraryMusic to Library
 import React, { useState, useEffect } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
@@ -99,7 +99,7 @@ export default function ExploreMusicPage() { // Renamed component
       <PageHeader
         title="Explorer la Musique sur Zikcut"
         description="Découvrez de nouvelles pistes, albums, artistes et genres musicaux. Filtrez par style et trouvez votre prochain son."
-        icon={LibraryMusic} // Changed icon
+        icon={Library} // Changed icon
       />
 
       <Card className="mb-6 shadow-md">

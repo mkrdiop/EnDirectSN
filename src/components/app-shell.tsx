@@ -26,7 +26,7 @@ import {
   Palette as AiAlbumArtIcon, // Renamed ImageIcon to Palette
   FileText as AiLyricsIcon, // Renamed Languages to FileText
   CreditCard,
-  LibraryMusic, // Renamed Tv2 to LibraryMusic
+  Library, // Corrected from LibraryMusic
   Wallet, 
   Users,
   SlidersHorizontal, // Icon for Project Settings
@@ -44,7 +44,7 @@ const creatorNavItems = [
 ];
 
 const fanNavItems = [
-  { href: "/explore-music", label: "Explorer la Musique", icon: LibraryMusic }, // Was live-streams
+  { href: "/explore-music", label: "Explorer la Musique", icon: Library }, // Was live-streams
   { href: "/account/wallet", label: "Mon Portefeuille", icon: Wallet },
 ];
 
