@@ -5,9 +5,11 @@ import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
-import { Search, Headphones, MessageSquareText, Wallet, Heart, Smartphone, PlaySquare, Users, MonitorPlay, Disc3, Laptop, Tv } from "lucide-react";
+import { Search, Headphones, MessageSquareText, Wallet, Heart, Smartphone, PlaySquare, Users, MonitorPlay, Disc3, Laptop, Tv, LucideIcon } from "lucide-react";
 import { Logo } from "@/components/logo";
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { generateLandingImage } from "@/ai/flows/generate-landing-image-flow";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const ViewersLandingNavbar = () => {
   return (
@@ -66,42 +68,58 @@ const ViewersLandingFooter = () => {
   );
 };
 
-const viewerFeatures = [
+interface ViewerFeature {
+  icon: LucideIcon;
+  title: string;
+  description: string;
+  dataAiHint: string;
+  imageUrl: string;
+  imagePrompt: string;
+  isLoading: boolean;
+}
+
+const initialViewerFeatures: Omit<ViewerFeature, 'imageUrl' | 'isLoading'>[] = [
   {
     icon: Disc3,
     title: "Musique Innovante et Originale",
     description: "Explorez des milliers de pistes uniques, y compris des créations assistées par IA, par des artistes et influenceurs émergents.",
-    dataAiHint: "innovative music",
+    dataAiHint: "innovative music african artists",
+    imagePrompt: "A vibrant, photorealistic image of diverse African musicians collaborating on innovative music, blending traditional and modern instruments on a colorful stage."
   },
   {
-    icon: MonitorPlay, // Keep for general "quality viewing/listening"
+    icon: MonitorPlay,
     title: "Audio Haute Fidélité",
     description: "Plongez dans une expérience d'écoute immersive avec un son de haute qualité, optimisé pour tous les appareils.",
-    dataAiHint: "high fidelity audio",
+    dataAiHint: "high fidelity audio african music",
+    imagePrompt: "Photorealistic close-up of high-quality headphones with soundwaves visually representing African music, set against a richly textured, warm background."
   },
   {
     icon: MessageSquareText,
     title: "Connectez avec les Artistes & Influenceurs",
     description: "Rejoignez les communautés, échangez avec les créateurs, découvrez les histoires derrière la musique et influencez les tendances.",
-    dataAiHint: "artist fan interaction",
+    dataAiHint: "african artist fan interaction",
+    imagePrompt: "A photorealistic, dynamic scene of African musicians interacting joyfully with an enthusiastic audience at a vibrant music festival or concert."
   },
   {
     icon: Wallet,
     title: "Écoute Gratuite & Contenu Exclusif",
     description: "Accédez à une vaste bibliothèque de musique gratuite ou soutenez les artistes en achetant des pistes/albums exclusifs. Rechargez via Orange Money.",
-    dataAiHint: "music streaming wallet",
+    dataAiHint: "music streaming wallet africa",
+    imagePrompt: "Photorealistic image of a smartphone displaying the Zikcut app interface with diverse African music album art, alongside an Orange Money logo, on a modern desk."
   },
   {
     icon: Heart,
     title: "Soutenez les Artistes Émergents",
     description: "En écoutant, partageant ou achetant, vous supportez directement les talents et la créativité que vous aimez sur Zikcut.",
-    dataAiHint: "support artists",
+    dataAiHint: "support emerging african artists",
+    imagePrompt: "A photorealistic, heartwarming image of a diverse group of fans enthusiastically supporting an emerging African musician performing on a small, intimate stage."
   },
   {
     icon: Laptop,
     title: "Disponible Partout, Tout le Temps",
     description: "Accédez à Zikcut sur votre ordinateur, tablette ou smartphone. Votre musique vous suit partout.",
-    dataAiHint: "multi-platform music",
+    dataAiHint: "multi-platform african music",
+    imagePrompt: "A photorealistic image showcasing the Zikcut app interface seamlessly displayed across various devices (laptop, tablet, smartphone) with African-themed backgrounds."
   },
 ];
 
@@ -114,6 +132,55 @@ const howItWorksSteps = [
 
 
 export default function ViewersLandingPage() {
+  const [heroImageUrl, setHeroImageUrl] = useState("https://placehold.co/1280x720.png?text=Chargement+Image+H%C3%A9ro...");
+  const [isHeroImageLoading, setIsHeroImageLoading] = useState(true);
+
+  const [features, setFeatures] = useState<ViewerFeature[]>(
+    initialViewerFeatures.map(f => ({ 
+      ...f, 
+      imageUrl: `https://placehold.co/400x200.png?text=${encodeURIComponent(f.title)}`,
+      isLoading: true,
+    }))
+  );
+
+  useEffect(() => {
+    const fetchHeroImage = async () => {
+      setIsHeroImageLoading(true);
+      try {
+        const { imageDataUri } = await generateLandingImage({ prompt: "Photorealistic, vibrant image of diverse fans joyfully discovering and listening to African music on various devices, in a lively, colorful setting." });
+        setHeroImageUrl(imageDataUri);
+      } catch (error) {
+        console.error("Failed to generate hero image:", error);
+        setHeroImageUrl("https://placehold.co/1280x720.png?text=Erreur+Image+H%C3%A9ro");
+      } finally {
+        setIsHeroImageLoading(false);
+      }
+    };
+    fetchHeroImage();
+  }, []);
+
+  useEffect(() => {
+    const fetchFeatureImages = async () => {
+      const updatedFeatures = await Promise.all(
+        features.map(async (feature) => {
+          if (feature.isLoading) { // only fetch if not already loaded or failed
+            try {
+              const { imageDataUri } = await generateLandingImage({ prompt: feature.imagePrompt });
+              return { ...feature, imageUrl: imageDataUri, isLoading: false };
+            } catch (error) {
+              console.error(`Failed to generate image for ${feature.title}:`, error);
+              return { ...feature, imageUrl: `https://placehold.co/400x200.png?text=Erreur+Image`, isLoading: false };
+            }
+          }
+          return feature;
+        })
+      );
+      setFeatures(updatedFeatures);
+    };
+    fetchFeatureImages();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Initial load
+
   return (
     <div className="flex flex-col min-h-screen bg-background">
       <ViewersLandingNavbar />
@@ -141,7 +208,11 @@ export default function ViewersLandingPage() {
               </Button>
             </div>
              <div className="mt-16 relative aspect-video max-w-4xl mx-auto rounded-xl shadow-2xl overflow-hidden">
-                <Image src="https://placehold.co/1280x720.png" alt="Fans découvrant de la musique sur Zikcut" layout="fill" objectFit="cover" data-ai-hint="fans discovering music"/>
+                {isHeroImageLoading ? (
+                  <Skeleton className="w-full h-full" />
+                ) : (
+                  <Image src={heroImageUrl} alt="Fans découvrant de la musique sur Zikcut" layout="fill" objectFit="cover" data-ai-hint="fans discovering music african"/>
+                )}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
                 <div className="absolute bottom-8 left-8 text-left">
                     <h3 className="text-2xl font-semibold text-white">Votre Prochain Coup de Cœur Musical est Ici</h3>
@@ -161,7 +232,7 @@ export default function ViewersLandingPage() {
               </p>
             </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {viewerFeatures.map((feature) => (
+              {features.map((feature) => (
                 <Card key={feature.title} className="shadow-lg hover:shadow-accent/20 transition-shadow duration-300 flex flex-col">
                   <CardHeader className="flex-row items-start gap-4">
                     <div className="p-3 rounded-full bg-accent/10 text-accent">
@@ -173,7 +244,11 @@ export default function ViewersLandingPage() {
                     <CardDescription>{feature.description}</CardDescription>
                   </CardContent>
                    <CardFooter>
-                     <Image src={`https://placehold.co/400x200.png`} alt={feature.title} width={400} height={200} className="rounded-md object-cover aspect-video w-full" data-ai-hint={feature.dataAiHint} />
+                    {feature.isLoading ? (
+                      <Skeleton className="rounded-md object-cover aspect-video w-full h-[200px]" />
+                    ) : (
+                     <Image src={feature.imageUrl} alt={feature.title} width={400} height={200} className="rounded-md object-cover aspect-video w-full" data-ai-hint={feature.dataAiHint} />
+                    )}
                   </CardFooter>
                 </Card>
               ))}
@@ -254,3 +329,4 @@ export default function ViewersLandingPage() {
     </div>
   );
 }
+
