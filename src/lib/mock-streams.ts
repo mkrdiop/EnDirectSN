@@ -1,131 +1,131 @@
 
-export interface Stream {
+export interface MusicTrack {
   id: string;
   title: string;
-  streamerName: string;
-  streamerAvatarUrl: string;
-  category: string;
+  artistName: string;
+  artistAvatarUrl: string; // For artist image on track
+  artistAvatarAiHint: string;
+  albumName?: string;
+  genre: string;
   price: number; // 0 for free
-  thumbnailUrl: string;
-  thumbnailAiHint: string;
-  viewersCount: number;
-  isLive: boolean;
+  artworkUrl: string; // Initially placeholder, to be filled by AI
+  artworkAiHint: string; // Used as part of the prompt for AI image generation
+  duration?: string; // e.g., "3:45"
+  playCount: number;
+  isFeatured?: boolean; // To mark tracks for "Featured" section
+  releaseDate?: string; // e.g., "2024-07-20"
   description: string;
 }
 
-export const mockStreams: Stream[] = [
+export const mockMusicTracks: MusicTrack[] = [
   {
-    id: "1",
-    title: "Session de Gaming Intense sur 'CyberPunk Dakar'",
-    streamerName: "GamerProSN",
-    streamerAvatarUrl: "https://picsum.photos/seed/avatar1/40/40",
-    category: "Gaming",
-    price: 500, // CFA
-    thumbnailUrl: "https://picsum.photos/seed/stream1/600/400",
-    thumbnailAiHint: "gaming cyberpunk",
-    viewersCount: 1250,
-    isLive: true,
-    description: "Rejoignez-moi pour une aventure épique dans les rues de CyberPunk Dakar. Action et adrénaline garanties !"
-  },
-  {
-    id: "2",
-    title: "Cours de Cuisine: Thieboudienne revisité",
-    streamerName: "ChefAmina",
-    streamerAvatarUrl: "https://picsum.photos/seed/avatar2/40/40",
-    category: "Cuisine",
-    price: 0, // Free
-    thumbnailUrl: "https://picsum.photos/seed/stream2/600/400",
-    thumbnailAiHint: "cuisine senegalese",
-    viewersCount: 800,
-    isLive: true,
-    description: "Apprenez à préparer une version moderne du Thieboudienne. Recette facile et délicieuse."
-  },
-  {
-    id: "3",
-    title: "Débat Politique: Les Enjeux Économiques",
-    streamerName: "AnalysteEco",
-    streamerAvatarUrl: "https://picsum.photos/seed/avatar3/40/40",
-    category: "Discussion",
-    price: 250,
-    thumbnailUrl: "https://picsum.photos/seed/stream3/600/400",
-    thumbnailAiHint: "political debate",
-    viewersCount: 2500,
-    isLive: true,
-    description: "Analyse approfondie des défis et opportunités économiques au Sénégal. Participez au débat !"
-  },
-  {
-    id: "4",
-    title: "Concert Acoustique Mbalax",
-    streamerName: "MusicienTalentueux",
-    streamerAvatarUrl: "https://picsum.photos/seed/avatar4/40/40",
-    category: "Musique",
-    price: 1000,
-    thumbnailUrl: "https://picsum.photos/seed/stream4/600/400",
-    thumbnailAiHint: "acoustic concert",
-    viewersCount: 500,
-    isLive: true,
-    description: "Un concert intime avec les meilleurs classiques du Mbalax en version acoustique. Ambiance chaleureuse."
-  },
-  {
-    id: "5",
-    title: "Apprendre le Wolof: Phrases Utiles",
-    streamerName: "ProfDeWolof",
-    streamerAvatarUrl: "https://picsum.photos/seed/avatar5/40/40",
-    category: "Éducation",
+    id: "track1",
+    title: "Sénégal Vibrations",
+    artistName: "Youssou N'Dour",
+    artistAvatarUrl: "https://placehold.co/40x40.png",
+    artistAvatarAiHint: "Youssou NDour portrait",
+    albumName: "Africa Rekk",
+    genre: "Mbalax",
     price: 0,
-    thumbnailUrl: "https://picsum.photos/seed/stream5/600/400",
-    thumbnailAiHint: "language learning",
-    viewersCount: 300,
-    isLive: true,
-    description: "Cours interactif pour apprendre les phrases de base en Wolof pour la vie quotidienne."
+    artworkUrl: "https://placehold.co/600x400.png",
+    artworkAiHint: "Mbalax music album cover Senegal vibes",
+    duration: "4:12",
+    playCount: 125000,
+    isFeatured: true,
+    releaseDate: "2023-05-15",
+    description: "Un classique revisité qui capture l'essence du Mbalax moderne."
   },
   {
-    id: "6",
-    title: "Fitness en Direct: Séance Abdos-Fessiers",
-    streamerName: "CoachFitnessSN",
-    streamerAvatarUrl: "https://picsum.photos/seed/avatar6/40/40",
-    category: "Sport",
+    id: "track2",
+    title: "Dakar Midnight Grooves",
+    artistName: "Omar Pene",
+    artistAvatarUrl: "https://placehold.co/40x40.png",
+    artistAvatarAiHint: "Omar Pene portrait",
+    albumName: "Nanga Def",
+    genre: "Afrobeat",
+    price: 500,
+    artworkUrl: "https://placehold.co/600x400.png",
+    artworkAiHint: "Afrobeat album cover Dakar nightlife",
+    duration: "5:03",
+    playCount: 78000,
+    isFeatured: true,
+    releaseDate: "2024-01-20",
+    description: "Laissez-vous emporter par les rythmes envoûtants d'Afrobeat, parfaits pour une soirée à Dakar."
+  },
+  {
+    id: "track3",
+    title: "Desert Blues Echo",
+    artistName: "Ali Farka Touré",
+    artistAvatarUrl: "https://placehold.co/40x40.png",
+    artistAvatarAiHint: "Ali Farka Toure portrait",
+    genre: "Desert Blues",
+    price: 0,
+    artworkUrl: "https://placehold.co/600x400.png",
+    artworkAiHint: "Desert Blues music artwork African landscape",
+    duration: "6:20",
+    playCount: 250000,
+    isFeatured: false,
+    releaseDate: "2006-03-07",
+    description: "Un voyage musical à travers les paysages sonores du Sahel."
+  },
+  {
+    id: "track4",
+    title: "Afro Hip Hop Cypher",
+    artistName: "Nix",
+    artistAvatarUrl: "https://placehold.co/40x40.png",
+    artistAvatarAiHint: "Nix senegalese rapper portrait",
+    albumName: "Excuse My Wolof",
+    genre: "Hip Hop",
     price: 300,
-    thumbnailUrl: "https://picsum.photos/seed/stream6/600/400",
-    thumbnailAiHint: "fitness workout",
-    viewersCount: 150,
-    isLive: false, // Example of an offline stream
-    description: "Session d'entraînement intense pour renforcer vos abdominaux et fessiers. Préparez-vous à transpirer !"
-  },
-   {
-    id: "7",
-    title: "Art Sénégalais: Visite d'Atelier",
-    streamerName: "ArtistePeintre",
-    streamerAvatarUrl: "https://picsum.photos/seed/avatar7/40/40",
-    category: "Art",
-    price: 150,
-    thumbnailUrl: "https://picsum.photos/seed/stream7/600/400",
-    thumbnailAiHint: "art studio",
-    viewersCount: 450,
-    isLive: true,
-    description: "Découvrez les coulisses de mon atelier et mon processus de création artistique."
+    artworkUrl: "https://placehold.co/600x400.png",
+    artworkAiHint: "African Hip Hop album cover graffiti urban",
+    duration: "3:55",
+    playCount: 95000,
+    isFeatured: true,
+    releaseDate: "2022-11-10",
+    description: "Des rimes percutantes sur des beats Afro-urbains, le son de la jeunesse."
   },
   {
-    id: "8",
-    title: "Tech Talk: Le Futur de l'IA au Sénégal",
-    streamerName: "TechGuruSN",
-    streamerAvatarUrl: "https://picsum.photos/seed/avatar8/40/40",
-    category: "Technologie",
+    id: "track5",
+    title: "Soulful Kora Serenade",
+    artistName: "Sona Jobarteh",
+    artistAvatarUrl: "https://placehold.co/40x40.png",
+    artistAvatarAiHint: "Sona Jobarteh kora player portrait",
+    genre: "World Music",
+    price: 0,
+    artworkUrl: "https://placehold.co/600x400.png",
+    artworkAiHint: "Kora music album art serene beautiful",
+    duration: "4:40",
+    playCount: 150000,
+    isFeatured: false,
+    releaseDate: "2021-09-01",
+    description: "La Kora comme vous ne l'avez jamais entendue, une mélodie qui touche l'âme."
+  },
+  {
+    id: "track6",
+    title: "Electro Baobab Beats",
+    artistName: "DJ Teranga",
+    artistAvatarUrl: "https://placehold.co/40x40.png",
+    artistAvatarAiHint: "African DJ portrait electronic music",
+    albumName: "Digital Griot",
+    genre: "Electro",
     price: 750,
-    thumbnailUrl: "https://picsum.photos/seed/stream8/600/400",
-    thumbnailAiHint: "tech talk",
-    viewersCount: 920,
-    isLive: true,
-    description: "Discussion passionnante sur les avancées de l'IA et leur impact potentiel au Sénégal."
+    artworkUrl: "https://placehold.co/600x400.png",
+    artworkAiHint: "Electronic music album cover baobab tree futuristic",
+    duration: "5:30",
+    playCount: 62000,
+    isFeatured: true,
+    releaseDate: "2024-03-05",
+    description: "Fusion de sons traditionnels africains et de rythmes électroniques modernes."
   }
 ];
 
-export const streamCategories = ["Tous", ...Array.from(new Set(mockStreams.filter(s => s.isLive).map(s => s.category)))];
+// To be used by explore page for categories, adapting streamCategories logic
+export const musicGenres = ["Tous les Genres", ...Array.from(new Set(mockMusicTracks.map(t => t.genre)))];
 
-export const getStreamsByCategory = (category: string): Stream[] => {
-  if (category === "Tous") {
-    return mockStreams.filter(s => s.isLive);
+export const getMusicByGenre = (genre: string): MusicTrack[] => {
+  if (genre === "Tous les Genres") {
+    return mockMusicTracks;
   }
-  return mockStreams.filter(s => s.category === category && s.isLive);
+  return mockMusicTracks.filter(t => t.genre === genre);
 };
-
