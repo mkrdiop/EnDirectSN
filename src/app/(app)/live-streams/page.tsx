@@ -2,11 +2,9 @@
 "use client";
 
 import { PageHeader } from "@/components/page-header";
-// TODO: Replace StreamCard with a MusicTrackCard component
 import { StreamCard } from "@/components/viewer/stream-card"; 
-// TODO: Replace mockStreams, streamCategories, getStreamsByCategory with music-specific data and functions
-import { mockStreams, streamCategories, getStreamsByCategory, type Stream } from "@/lib/mock-streams";
-import { Library, Wallet, Music2 } from "lucide-react"; // Changed LibraryMusic to Library
+import { mockMusicTracks, musicGenres, getMusicByGenre, type MusicTrack } from "@/lib/mock-streams"; // Updated imports
+import { Library, Wallet } from "lucide-react"; // Changed LibraryMusic to Library
 import React, { useState, useEffect } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
@@ -16,59 +14,57 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 
 
 const MOCK_WALLET_BALANCE_KEY = "mockWalletBalance";
-const MOCK_UNLOCKED_STREAMS_KEY = "mockUnlockedStreams"; // Will become MOCK_UNLOCKED_TRACKS_KEY
+const MOCK_UNLOCKED_TRACKS_KEY = "mockUnlockedTracks"; // Updated key
 
 
-export default function ExploreMusicPage() { // Renamed component
-  // TODO: Update selectedCategory and filteredStreams to use music genres and tracks
-  const [selectedCategory, setSelectedCategory] = useState<string>(streamCategories[0]);
-  const [filteredStreams, setFilteredStreams] = useState<Stream[]>([]); // Should be MusicTrack[]
+export default function AuthenticatedExploreMusicPage() { // Renamed component
+  const [selectedGenre, setSelectedGenre] = useState<string>(musicGenres[0]); // Updated state
+  const [filteredMusicTracks, setFilteredMusicTracks] = useState<MusicTrack[]>([]); // Updated state
   const { toast } = useToast();
   
   const [walletBalance, setWalletBalance] = useState<number>(0);
-  // TODO: Update unlockedStreams to unlockedTracks (Set of track IDs)
-  const [unlockedStreams, setUnlockedStreams] = useState<Set<string>>(new Set());
+  const [unlockedTracks, setUnlockedTracks] = useState<Set<string>>(new Set());
 
   useEffect(() => {
     const storedBalance = localStorage.getItem(MOCK_WALLET_BALANCE_KEY);
     if (storedBalance) {
       setWalletBalance(parseFloat(storedBalance));
     } else {
+      // Setting a default balance if none is found for demo purposes.
+      // In a real app, this would come from a backend.
       localStorage.setItem(MOCK_WALLET_BALANCE_KEY, "2000");
       setWalletBalance(2000);
     }
 
-    const storedUnlocked = localStorage.getItem(MOCK_UNLOCKED_STREAMS_KEY);
+    const storedUnlocked = localStorage.getItem(MOCK_UNLOCKED_TRACKS_KEY);
     if (storedUnlocked) {
-      setUnlockedStreams(new Set(JSON.parse(storedUnlocked)));
+      setUnlockedTracks(new Set(JSON.parse(storedUnlocked)));
     }
   }, []);
 
 
   useEffect(() => {
-    // TODO: Replace with getMusicByGenre or similar
-    setFilteredStreams(getStreamsByCategory(selectedCategory));
-  }, [selectedCategory]);
+    setFilteredMusicTracks(getMusicByGenre(selectedGenre)); // Updated function call
+  }, [selectedGenre]);
 
-  // TODO: Adapt this function for unlocking music tracks
-  const handleUnlockStream = (streamId: string, price: number): boolean => {
+  const handleUnlockTrack = (trackId: string, price: number): boolean => { // Renamed function
     if (walletBalance >= price) {
       const newBalance = walletBalance - price;
       setWalletBalance(newBalance);
       localStorage.setItem(MOCK_WALLET_BALANCE_KEY, String(newBalance));
 
-      const newUnlockedStreams = new Set(unlockedStreams).add(streamId);
-      setUnlockedStreams(newUnlockedStreams);
-      localStorage.setItem(MOCK_UNLOCKED_STREAMS_KEY, JSON.stringify(Array.from(newUnlockedStreams)));
+      const newUnlockedTracksSet = new Set(unlockedTracks).add(trackId); // Renamed variable
+      setUnlockedTracks(newUnlockedTracksSet);
+      localStorage.setItem(MOCK_UNLOCKED_TRACKS_KEY, JSON.stringify(Array.from(newUnlockedTracksSet)));
       
       const MOCK_TRANSACTION_HISTORY_KEY = "mockTransactionHistory";
       const storedHistory = localStorage.getItem(MOCK_TRANSACTION_HISTORY_KEY);
       let history = storedHistory ? JSON.parse(storedHistory) : [];
-      const streamTitle = mockStreams.find(s => s.id === streamId)?.title || "Contenu Musical"; // Changed "Stream"
+      const trackTitle = mockMusicTracks.find(s => s.id === trackId)?.title || "Contenu Musical";
       const newTransaction = {
-        id: `txn_spend_${Date.now()}`,
+        id: `txn_spend_track_${Date.now()}`, // Updated transaction ID prefix
         date: new Date().toISOString(),
-        description: `Achat: ${streamTitle}`, // Changed "Déblocage"
+        description: `Achat: ${trackTitle}`, 
         amount: -price, 
         type: "spend",
       };
@@ -99,7 +95,7 @@ export default function ExploreMusicPage() { // Renamed component
       <PageHeader
         title="Explorer la Musique sur Zikcut"
         description="Découvrez de nouvelles pistes, albums, artistes et genres musicaux. Filtrez par style et trouvez votre prochain son."
-        icon={Library} // Changed icon
+        icon={Library} 
       />
 
       <Card className="mb-6 shadow-md">
@@ -122,35 +118,47 @@ export default function ExploreMusicPage() { // Renamed component
         </CardContent>
       </Card>
 
-      {/* TODO: Update Tabs to use music genres from a new mock data source */}
-      <Tabs value={selectedCategory} onValueChange={setSelectedCategory} className="mb-6">
+      <Tabs value={selectedGenre} onValueChange={setSelectedGenre} className="mb-6">
         <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:flex lg:flex-wrap">
-          {streamCategories.map((category) => ( // streamCategories should become musicGenres
-            <TabsTrigger key={category} value={category} className="flex-1 lg:flex-none">
-              {category} {/* Category names should be music genres */}
+          {musicGenres.map((genre) => ( 
+            <TabsTrigger key={genre} value={genre} className="flex-1 lg:flex-none">
+              {genre}
             </TabsTrigger>
           ))}
         </TabsList>
       </Tabs>
 
-      {/* TODO: Replace StreamCard with MusicTrackCard and use music track data */}
-      {filteredStreams.length > 0 ? (
+      {filteredMusicTracks.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {filteredStreams.map((stream) => ( // stream should be musicTrack
-            <StreamCard 
-              key={stream.id} 
-              stream={stream} // Prop should be musicTrack
-              onUnlockStream={handleUnlockStream} // Functionality might change for music
-              isUnlocked={unlockedStreams.has(stream.id)}
+          {filteredMusicTracks.map((track) => ( 
+             <StreamCard 
+              key={track.id} 
+              stream={{ // Mapping MusicTrack to StreamCard's expected 'stream' prop
+                id: track.id,
+                title: track.title,
+                streamerName: track.artistName,
+                streamerAvatarUrl: track.artistAvatarUrl,
+                category: track.genre,
+                price: track.price,
+                thumbnailUrl: track.artworkUrl,
+                thumbnailAiHint: track.artworkAiHint,
+                viewersCount: track.playCount,
+                isLive: false, // Music tracks are not live
+                description: track.description,
+                duration: track.duration,
+              }}
+              onUnlockStream={handleUnlockTrack} 
+              isUnlocked={unlockedTracks.has(track.id) || track.price === 0}
             />
           ))}
         </div>
       ) : (
         <div className="text-center py-12">
-          <p className="text-xl text-muted-foreground">Aucune musique trouvée dans cette catégorie pour le moment.</p>
+          <p className="text-xl text-muted-foreground">Aucune musique trouvée dans ce genre pour le moment.</p>
           <p className="text-muted-foreground mt-2">Essayez de sélectionner un autre genre ou revenez plus tard.</p>
         </div>
       )}
     </div>
   );
 }
+
