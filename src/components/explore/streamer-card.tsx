@@ -36,7 +36,7 @@ export function StreamerCard({ streamer: artist }: ArtistCardProps) { // Renamed
       <CardContent className="p-4 flex justify-between items-center">
         <div className="flex items-center text-sm text-muted-foreground">
           <Users className="h-4 w-4 mr-1.5" />
-          {artist.followerCount.toLocaleString()} fans
+          {typeof artist.followerCount === 'number' ? artist.followerCount.toLocaleString() : '0'} fans
         </div>
         {/* isLive can be repurposed for something else if needed, or removed for artists */}
         {/* For now, let's use it to show a generic "Top Artist" badge or similar */}
@@ -55,3 +55,4 @@ export function StreamerCard({ streamer: artist }: ArtistCardProps) { // Renamed
     </Card>
   );
 }
+
