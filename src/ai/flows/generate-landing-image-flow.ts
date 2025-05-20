@@ -11,12 +11,12 @@
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 
-export const GenerateLandingImageInputSchema = z.object({
+const GenerateLandingImageInputSchema = z.object({
   prompt: z.string().describe('The text prompt to generate the image from.'),
 });
 export type GenerateLandingImageInput = z.infer<typeof GenerateLandingImageInputSchema>;
 
-export const GenerateLandingImageOutputSchema = z.object({
+const GenerateLandingImageOutputSchema = z.object({
   imageDataUri: z
     .string()
     .describe(
@@ -68,3 +68,4 @@ const generateLandingImageFlow = ai.defineFlow(
     }
   }
 );
+
