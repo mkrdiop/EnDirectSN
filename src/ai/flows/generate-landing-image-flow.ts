@@ -20,10 +20,12 @@ const GenerateLandingImageOutputSchema = z.object({
   imageDataUri: z
     .string()
     .describe(
-      "The generated image as a data URI. Format: 'data:image/png;base64,<encoded_data>'."
+      "The generated image as a data URI. Format: 'data:image/png;base64,<encoded_data>', or a placeholder URL if generation failed."
     ),
 });
 export type GenerateLandingImageOutput = z.infer<typeof GenerateLandingImageOutputSchema>;
+
+const FALLBACK_IMAGE_URI = "https://placehold.co/600x400.png?text=Image+Generation+Error";
 
 export async function generateLandingImage(
   input: GenerateLandingImageInput
@@ -38,7 +40,7 @@ const generateLandingImageFlow = ai.defineFlow(
     outputSchema: GenerateLandingImageOutputSchema,
   },
   async (input) => {
-    console.log(`Generating image with prompt: ${input.prompt}`);
+    console.log(`Attempting to generate image with prompt: ${input.prompt}`);
     try {
       const {media} = await ai.generate({
         model: 'googleai/gemini-2.0-flash-exp',
@@ -57,15 +59,14 @@ const generateLandingImageFlow = ai.defineFlow(
       if (media && media.url) {
         return { imageDataUri: media.url };
       } else {
-        throw new Error('Image generation failed to return a valid media URL.');
+        console.warn(`Image generation failed to return a valid media URL for prompt: "${input.prompt}". Using fallback.`);
+        return { imageDataUri: FALLBACK_IMAGE_URI };
       }
     } catch (error) {
-      console.error('Error in generateLandingImageFlow:', error);
-      // Fallback to a placeholder or re-throw, depending on desired error handling
-      // For now, let's throw to indicate failure clearly.
-      // A more robust solution might return a specific error structure or a placeholder URI.
-      throw new Error(`Failed to generate image for prompt "${input.prompt}": ${error instanceof Error ? error.message : String(error)}`);
+      console.error(`Error in generateLandingImageFlow for prompt "${input.prompt}":`, error);
+      // Check if the error is a quota error or other specific API error if needed for more granular handling
+      // For now, any error during generation will result in a fallback.
+      return { imageDataUri: FALLBACK_IMAGE_URI };
     }
   }
 );
-
