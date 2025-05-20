@@ -5,10 +5,12 @@ import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
-import { ArrowRight, Users, Play, Music2 as Mic, BarChart3, Palette, Cpu, Headphones, Disc3 } from "lucide-react"; // Changed Mic to Music2, Users to Headphones, Play to Disc3 for thematic icons
+import { ArrowRight, Users, Play, Music2 as Mic, BarChart3, Palette, Cpu, Headphones, Disc3 } from "lucide-react";
 import { Logo } from "@/components/logo";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Badge } from "@/components/ui/badge";
+import { generateLandingImage } from "@/ai/flows/generate-landing-image-flow";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const MainLandingNavbar = () => {
   return (
@@ -70,6 +72,33 @@ const MainLandingFooter = () => {
 };
 
 export default function MainLandingPage() {
+  const [heroBgUrl, setHeroBgUrl] = useState("https://placehold.co/1920x1080.png?text=Chargement...");
+  const [isHeroBgLoading, setIsHeroBgLoading] = useState(true);
+  const [creatorImageUrl, setCreatorImageUrl] = useState("https://placehold.co/600x500.png?text=Chargement...");
+  const [isCreatorImageLoading, setIsCreatorImageLoading] = useState(true);
+  const [fansImageUrl, setFansImageUrl] = useState("https://placehold.co/600x500.png?text=Chargement...");
+  const [isFansImageLoading, setIsFansImageLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchImage = async (setter: React.Dispatch<React.SetStateAction<string>>, loadingSetter: React.Dispatch<React.SetStateAction<boolean>>, prompt: string, fallback: string) => {
+      loadingSetter(true);
+      try {
+        const { imageDataUri } = await generateLandingImage({ prompt });
+        setter(imageDataUri);
+      } catch (error) {
+        console.error(`Failed to generate image for prompt "${prompt}":`, error);
+        setter(fallback);
+      } finally {
+        loadingSetter(false);
+      }
+    };
+
+    fetchImage(setHeroBgUrl, setIsHeroBgLoading, "Vibrant abstract music background, soundwaves and colors, suitable for a music platform hero section.", "https://placehold.co/1920x1080.png?text=Erreur+Image");
+    fetchImage(setCreatorImageUrl, setIsCreatorImageLoading, "Photorealistic image of a diverse group of African musicians collaborating and creating music using modern technology like laptops and tablets in a vibrant studio.", "https://placehold.co/600x500.png?text=Erreur+Image");
+    fetchImage(setFansImageUrl, setIsFansImageLoading, "Photorealistic image of diverse music fans joyfully listening to music on headphones and mobile devices, with African cultural elements subtly integrated.", "https://placehold.co/600x500.png?text=Erreur+Image");
+  }, []);
+
+
   return (
     <div className="flex flex-col min-h-screen bg-background">
       <MainLandingNavbar />
@@ -78,13 +107,18 @@ export default function MainLandingPage() {
         {/* Hero Section */}
         <section className="relative py-20 md:py-32 bg-gradient-to-br from-primary/5 via-background to-background overflow-hidden">
            <div className="absolute inset-0 opacity-10">
-            <Image
-                src="https://placehold.co/1920x1080.png"
-                alt="Fond abstrait musical"
-                layout="fill"
-                objectFit="cover"
-                data-ai-hint="abstract music pattern"
-            />
+            {isHeroBgLoading ? (
+              <Skeleton className="w-full h-full" />
+            ) : (
+              <Image
+                  src={heroBgUrl}
+                  alt="Fond abstrait musical"
+                  layout="fill"
+                  objectFit="cover"
+                  data-ai-hint="abstract music pattern"
+                  priority
+              />
+            )}
           </div>
           <div className="container text-center relative z-10">
             <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-foreground">
@@ -131,15 +165,19 @@ export default function MainLandingPage() {
                   </Link>
                 </Button>
               </div>
-              <div className="order-1 md:order-2">
-                <Image
-                  src="https://placehold.co/600x500.png"
-                  alt="Musicien utilisant Zikcut pour créer"
-                  width={600}
-                  height={500}
-                  className="rounded-xl shadow-2xl object-cover"
-                  data-ai-hint="musician creating AI"
-                />
+              <div className="order-1 md:order-2 aspect-[6/5]">
+                {isCreatorImageLoading ? (
+                  <Skeleton className="w-full h-full rounded-xl" />
+                ) : (
+                  <Image
+                    src={creatorImageUrl}
+                    alt="Musicien utilisant Zikcut pour créer"
+                    width={600}
+                    height={500}
+                    className="rounded-xl shadow-2xl object-cover w-full h-full"
+                    data-ai-hint="musician creating AI"
+                  />
+                )}
               </div>
             </div>
           </div>
@@ -149,15 +187,19 @@ export default function MainLandingPage() {
         <section className="py-16 md:py-24 bg-muted/50">
           <div className="container">
             <div className="grid md:grid-cols-2 gap-12 items-center">
-              <div>
-                <Image
-                  src="https://placehold.co/600x500.png"
-                  alt="Fans écoutant de la musique sur Zikcut"
-                  width={600}
-                  height={500}
-                  className="rounded-xl shadow-2xl object-cover"
-                  data-ai-hint="fans listening music"
-                />
+              <div className="aspect-[6/5]">
+                {isFansImageLoading ? (
+                  <Skeleton className="w-full h-full rounded-xl" />
+                ) : (
+                  <Image
+                    src={fansImageUrl}
+                    alt="Fans écoutant de la musique sur Zikcut"
+                    width={600}
+                    height={500}
+                    className="rounded-xl shadow-2xl object-cover w-full h-full"
+                    data-ai-hint="fans listening music"
+                  />
+                )}
               </div>
               <div>
                 <Badge variant="secondary" className="mb-3">Pour les Fans & Influenceurs</Badge>
@@ -233,3 +275,5 @@ export default function MainLandingPage() {
     </div>
   );
 }
+
+    

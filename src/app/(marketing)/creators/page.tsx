@@ -7,7 +7,9 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { CheckCircle, DollarSign, BarChart, Users, Music2, Film, Sparkles, Share2, CreditCard, Wand2, SlidersHorizontal, Palette } from "lucide-react";
 import { Logo } from "@/components/logo";
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { generateLandingImage } from "@/ai/flows/generate-landing-image-flow";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const CreatorsLandingNavbar = () => {
   return (
@@ -61,45 +63,109 @@ const CreatorsLandingFooter = () => {
   );
 };
 
-
-const features = [
+const initialFeatures = [
   {
     icon: Music2,
     title: "Génération de Pistes Audio IA",
     description: "Créez des morceaux originaux, des instrus ou des boucles. Choisissez le genre, l'ambiance, et laissez l'IA composer pour vous ou vous assister.",
-    dataAiHint: "AI music generation",
+    dataAiHint: "AI music generation studio african artist",
+    imagePrompt: "A futuristic music studio where an African artist is collaborating with an AI interface to compose a new song, vibrant visuals, energetic.",
   },
   {
     icon: Film,
     title: "Création de Clips Vidéo IA",
     description: "Transformez vos pistes audio en clips vidéo dynamiques. L'IA peut générer des visuels, synchroniser des scènes et créer des effets.",
-    dataAiHint: "AI video production",
+    dataAiHint: "AI video production for music african style",
+    imagePrompt: "Dynamic visuals of an AI generating a music video for an African pop song, showing abstract patterns, dancers, and futuristic cityscapes.",
   },
   {
     icon: Palette,
     title: "Conception de Pochettes IA",
     description: "Obtenez des pochettes d'album uniques et professionnelles en quelques clics, basées sur le style de votre musique et vos descriptions.",
-    dataAiHint: "AI album art",
+    dataAiHint: "AI album art generator african music theme",
+    imagePrompt: "An AI creating a stunning, culturally rich album cover for an African artist, blending traditional motifs with modern design.",
   },
   {
     icon: Wand2,
     title: "Assistant Paroles IA",
     description: "Bloqué sur une rime ? L'IA vous aide à trouver l'inspiration, suggérer des thèmes, et peaufiner vos paroles.",
-    dataAiHint: "AI lyric writing",
+    dataAiHint: "AI lyric writing assistant african languages",
+    imagePrompt: "An inspirational image of an AI helping a songwriter craft lyrics, with digital notes and words flowing around them, African context.",
   },
   {
     icon: Share2,
     title: "Distribution & Promotion",
     description: "Partagez facilement vos créations sur Zikcut et bénéficiez d'outils pour atteindre les fans et les influenceurs.",
-    dataAiHint: "music distribution",
+    dataAiHint: "music distribution platform africa",
+    imagePrompt: "A visual representation of music tracks being distributed globally from Africa, network lines connecting to various devices and platforms.",
   },
   {
     icon: CreditCard,
     title: "Monétisation Flexible",
     description: "Vendez vos pistes, proposez des abonnements exclusifs. Intégration Sonatel Orange Money (maquette) pour des paiements simplifiés.",
-    dataAiHint: "music monetization",
+    dataAiHint: "music monetization africa mobile money",
+    imagePrompt: "An image symbolizing music monetization in Africa, showing a mobile money interface (like Orange Money) integrated with a music sales platform.",
   },
 ];
+
+interface FeatureItem {
+  icon: React.ElementType;
+  title: string;
+  description: string;
+  dataAiHint: string;
+  imagePrompt: string;
+  imageUrl: string;
+  isLoading: boolean;
+}
+
+export default function CreatorsLandingPage() {
+  const [heroImageUrl, setHeroImageUrl] = useState("https://placehold.co/1280x720.png?text=Chargement+Dashboard+Zikcut...");
+  const [isHeroImageLoading, setIsHeroImageLoading] = useState(true);
+  const [features, setFeatures] = useState<FeatureItem[]>(
+    initialFeatures.map(f => ({ 
+      ...f, 
+      imageUrl: `https://placehold.co/400x200.png?text=${encodeURIComponent(f.title)}`,
+      isLoading: true,
+    }))
+  );
+
+  useEffect(() => {
+    const fetchHeroImage = async () => {
+      setIsHeroImageLoading(true);
+      try {
+        const { imageDataUri } = await generateLandingImage({ prompt: "Photorealistic image of a modern music creation dashboard interface, Zikcut branded, showcasing AI tools and analytics for African artists." });
+        setHeroImageUrl(imageDataUri);
+      } catch (error) {
+        console.error("Failed to generate hero image:", error);
+        setHeroImageUrl("https://placehold.co/1280x720.png?text=Erreur+Image+H%C3%A9ro");
+      } finally {
+        setIsHeroImageLoading(false);
+      }
+    };
+    fetchHeroImage();
+  }, []);
+
+  useEffect(() => {
+    const fetchFeatureImages = async () => {
+      const updatedFeatures = await Promise.all(
+        features.map(async (feature) => {
+          if (feature.isLoading) { // only fetch if not already loaded or failed
+            try {
+              const { imageDataUri } = await generateLandingImage({ prompt: feature.imagePrompt });
+              return { ...feature, imageUrl: imageDataUri, isLoading: false };
+            } catch (error) {
+              console.error(`Failed to generate image for ${feature.title}:`, error);
+              return { ...feature, imageUrl: `https://placehold.co/400x200.png?text=Erreur+Image`, isLoading: false };
+            }
+          }
+          return feature;
+        })
+      );
+      setFeatures(updatedFeatures);
+    };
+    fetchFeatureImages();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
 const whyUsPoints = [
   {
@@ -122,7 +188,6 @@ const whyUsPoints = [
   },
 ];
 
-export default function CreatorsLandingPage() {
   return (
     <div className="flex flex-col min-h-screen bg-background">
       <CreatorsLandingNavbar />
@@ -150,7 +215,11 @@ export default function CreatorsLandingPage() {
               </Button>
             </div>
              <div className="mt-16 relative aspect-video max-w-4xl mx-auto rounded-xl shadow-2xl overflow-hidden">
-                <Image src="https://placehold.co/1280x720.png" alt="Tableau de bord Zikcut pour créateurs" layout="fill" objectFit="cover" data-ai-hint="dashboard music creation"/>
+                {isHeroImageLoading ? (
+                  <Skeleton className="w-full h-full" />
+                ) : (
+                  <Image src={heroImageUrl} alt="Tableau de bord Zikcut pour créateurs" layout="fill" objectFit="cover" data-ai-hint="dashboard music creation"/>
+                )}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
                 <div className="absolute bottom-8 left-8 text-left">
                     <h3 className="text-2xl font-semibold text-white">Votre Studio de Création Musicale Augmenté par l'IA</h3>
@@ -182,7 +251,11 @@ export default function CreatorsLandingPage() {
                     <CardDescription>{feature.description}</CardDescription>
                   </CardContent>
                    <CardFooter>
-                     <Image src={`https://placehold.co/400x200.png`} alt={feature.title} width={400} height={200} className="rounded-md object-cover aspect-video w-full" data-ai-hint={feature.dataAiHint} />
+                    {feature.isLoading ? (
+                        <Skeleton className="rounded-md object-cover aspect-video w-full h-[200px]" />
+                    ) : (
+                        <Image src={feature.imageUrl} alt={feature.title} width={400} height={200} className="rounded-md object-cover aspect-video w-full" data-ai-hint={feature.dataAiHint} />
+                    )}
                   </CardFooter>
                 </Card>
               ))}
@@ -269,3 +342,5 @@ export default function CreatorsLandingPage() {
     </div>
   );
 }
+
+    
